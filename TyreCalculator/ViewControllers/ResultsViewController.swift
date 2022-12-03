@@ -25,3 +25,15 @@ class ResultsViewController: UIViewController {
     }
     
 }
+//    let sizeMultiplier:CGFloat = 50
+
+//    @IBAction func offsetSlider(_ sender: UISlider) {
+//        offsetLabel.text = "\(tyreView.frame.size.height)"
+//        offsetConstraint.constant = CGFloat(offsetSlider.value) * sizeMultiplier
+//
+//    }
+//
+//    @IBAction func widthSlider(_ sender: UISlider) {
+//        tyreView.frame.size.height = CGFloat(offsetSlider.value) * sizeMultiplier
+//    }
+//

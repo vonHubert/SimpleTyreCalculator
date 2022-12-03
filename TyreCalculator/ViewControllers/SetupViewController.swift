@@ -9,6 +9,7 @@ import UIKit
 
 class SetupViewController: UIViewController {
 
+    // MARK: Outlets
     
     @IBOutlet var rimSizePickerBefore: UIPickerView!
     @IBOutlet var rimSizePickerAfter: UIPickerView!
@@ -26,25 +27,27 @@ class SetupViewController: UIViewController {
     @IBOutlet var tyreHeigthPickerAfter: UIPickerView!
     
     // MARK: Variables
+    
     var wheelBefore: WheelSet = WheelSet(
-        rimSize: 15,
-        rimWidth: 7.5,
-        rimOffset: 45,
-        tyreWidth: 225,
-        tyreHeight: 55
+        rimSize: 13,
+        rimWidth: 5,
+        rimOffset: -20,
+        tyreWidth: 135,
+        tyreHeight: 20
     )
 
     var wheelAfter: WheelSet = WheelSet(
-        rimSize: 15,
-        rimWidth: 7.5,
-        rimOffset: 45,
-        tyreWidth: 225,
-        tyreHeight: 55
+        rimSize: 13,
+        rimWidth: 5,
+        rimOffset: -20,
+        tyreWidth: 135,
+        tyreHeight: 20
     )
-
+    // MARK: viewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         rimSizePickerBefore.dataSource = self
         rimSizePickerBefore.delegate = self
         rimSizePickerAfter.dataSource = self
@@ -69,18 +72,21 @@ class SetupViewController: UIViewController {
         tyreHeigthPickerBefore.delegate = self
         tyreHeigthPickerAfter.dataSource = self
         tyreHeigthPickerAfter.delegate = self
-        
-        
     }
     
-    let sizeMultiplier:CGFloat = 50
-    
-
+    // MARK: Pickers Data
     var rimSizesData = PickerData.getRimSizesData()
     var rimWidthsData = PickerData.getRimWidthsData()
     var rimOffsetsData = PickerData.getRimOffsetsData()
     var tyreWidthsData = PickerData.getTyreWidthsData()
     var tyreHeightsData = PickerData.getTyreHeigthsData()
+    
+    // MARK: Actions
+    
+    @IBAction func testAction(_ sender: Any) {
+        print(wheelBefore)
+        print(wheelAfter)
+    }
     
 }
 
@@ -108,23 +114,19 @@ extension SetupViewController:UIPickerViewDataSource, UIPickerViewDelegate {
         }
     }
     
-//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        switch pickerView {
-//        case rimSizePickerBefore: rimSizeBeforeLabel.text = rimSizesData[row]
-//        default: rimSizeAfterLabel.text = rimSizesData[row]
-//        }
-//    }
-    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch pickerView {
+        case rimSizePickerBefore: wheelBefore.rimSize = Float(rimSizesData[row])!
+        case rimSizePickerAfter: wheelAfter.rimSize = Float(rimSizesData[row])!
+        case rimWidthPickerBefore: wheelBefore.rimWidth = Float(rimWidthsData[row])!
+        case rimWidthPickerAfter: wheelAfter.rimWidth = Float(rimWidthsData[row])!
+        case rimOffsetPickerBefore: wheelBefore.rimOffset = Float(rimOffsetsData[row])!
+        case rimOffsetPickerAfter: wheelAfter.rimOffset = Float(rimOffsetsData[row])!
+        case tyreWidthPickerBefore: wheelBefore.tyreWidth = Float(tyreWidthsData[row])!
+        case tyreWidthPickerAfter: wheelAfter.tyreWidth = Float(tyreWidthsData[row])!
+        case tyreHeigthPickerBefore: wheelBefore.tyreHeight = Float(tyreHeightsData[row])!
+        default: wheelAfter.tyreHeight = Float(tyreHeightsData[row])!
+        }
+    }
 }
     
-    
-//    @IBAction func offsetSlider(_ sender: UISlider) {
-//        offsetLabel.text = "\(tyreView.frame.size.height)"
-//        offsetConstraint.constant = CGFloat(offsetSlider.value) * sizeMultiplier
-//
-//    }
-//
-//    @IBAction func widthSlider(_ sender: UISlider) {
-//        tyreView.frame.size.height = CGFloat(offsetSlider.value) * sizeMultiplier
-//    }
-//
