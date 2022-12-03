@@ -9,21 +9,25 @@
 /* Begin PBXBuildFile section */
 		32ADB2E4293A891F00C08003 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32ADB2E3293A891F00C08003 /* AppDelegate.swift */; };
 		32ADB2E6293A891F00C08003 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32ADB2E5293A891F00C08003 /* SceneDelegate.swift */; };
-		32ADB2E8293A891F00C08003 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32ADB2E7293A891F00C08003 /* ViewController.swift */; };
+		32ADB2E8293A891F00C08003 /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32ADB2E7293A891F00C08003 /* SetupViewController.swift */; };
 		32ADB2EB293A891F00C08003 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32ADB2E9293A891F00C08003 /* Main.storyboard */; };
 		32ADB2ED293A892100C08003 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32ADB2EC293A892100C08003 /* Assets.xcassets */; };
 		32ADB2F0293A892100C08003 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32ADB2EE293A892100C08003 /* LaunchScreen.storyboard */; };
+		32C9EE1D293BBA7700CC7A0F /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C9EE1C293BBA7700CC7A0F /* ResultsViewController.swift */; };
+		32C9EE23293BC16600CC7A0F /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C9EE22293BC16600CC7A0F /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		32ADB2E0293A891F00C08003 /* TyreCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TyreCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32ADB2E3293A891F00C08003 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		32ADB2E5293A891F00C08003 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		32ADB2E7293A891F00C08003 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		32ADB2E7293A891F00C08003 /* SetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
 		32ADB2EA293A891F00C08003 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		32ADB2EC293A892100C08003 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		32ADB2EF293A892100C08003 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		32ADB2F1293A892100C08003 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		32C9EE1C293BBA7700CC7A0F /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
+		32C9EE22293BC16600CC7A0F /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +60,49 @@
 		32ADB2E2293A891F00C08003 /* TyreCalculator */ = {
 			isa = PBXGroup;
 			children = (
-				32ADB2E3293A891F00C08003 /* AppDelegate.swift */,
-				32ADB2E5293A891F00C08003 /* SceneDelegate.swift */,
-				32ADB2E7293A891F00C08003 /* ViewController.swift */,
-				32ADB2E9293A891F00C08003 /* Main.storyboard */,
-				32ADB2EC293A892100C08003 /* Assets.xcassets */,
-				32ADB2EE293A892100C08003 /* LaunchScreen.storyboard */,
-				32ADB2F1293A892100C08003 /* Info.plist */,
+				32C9EE22293BC16600CC7A0F /* Model.swift */,
+				32C9EE1F293BC12700CC7A0F /* App */,
+				32C9EE1E293BC10E00CC7A0F /* ViewControllers */,
+				32C9EE20293BC13200CC7A0F /* StoryBoards */,
+				32C9EE21293BC14300CC7A0F /* Misc */,
 			);
 			path = TyreCalculator;
+			sourceTree = "<group>";
+		};
+		32C9EE1E293BC10E00CC7A0F /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				32C9EE1C293BBA7700CC7A0F /* ResultsViewController.swift */,
+				32ADB2E7293A891F00C08003 /* SetupViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		32C9EE1F293BC12700CC7A0F /* App */ = {
+			isa = PBXGroup;
+			children = (
+				32ADB2E3293A891F00C08003 /* AppDelegate.swift */,
+				32ADB2E5293A891F00C08003 /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		32C9EE20293BC13200CC7A0F /* StoryBoards */ = {
+			isa = PBXGroup;
+			children = (
+				32ADB2E9293A891F00C08003 /* Main.storyboard */,
+				32ADB2EE293A892100C08003 /* LaunchScreen.storyboard */,
+			);
+			path = StoryBoards;
+			sourceTree = "<group>";
+		};
+		32C9EE21293BC14300CC7A0F /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				32ADB2EC293A892100C08003 /* Assets.xcassets */,
+				32ADB2F1293A892100C08003 /* Info.plist */,
+			);
+			path = Misc;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +176,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32ADB2E8293A891F00C08003 /* ViewController.swift in Sources */,
+				32C9EE23293BC16600CC7A0F /* Model.swift in Sources */,
+				32ADB2E8293A891F00C08003 /* SetupViewController.swift in Sources */,
 				32ADB2E4293A891F00C08003 /* AppDelegate.swift in Sources */,
 				32ADB2E6293A891F00C08003 /* SceneDelegate.swift in Sources */,
+				32C9EE1D293BBA7700CC7A0F /* ResultsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,12 +329,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 87J7WT48DW;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = TyreCalculator/Info.plist;
+				INFOPLIST_FILE = TyreCalculator/Misc/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,9 +342,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = SS.TyreCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -317,12 +360,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 87J7WT48DW;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = TyreCalculator/Info.plist;
+				INFOPLIST_FILE = TyreCalculator/Misc/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -330,9 +373,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = SS.TyreCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
