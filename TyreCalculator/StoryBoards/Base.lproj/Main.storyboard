@@ -178,17 +178,6 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Fe-g0-cLt">
-                                <rect key="frame" x="179" y="67" width="57" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Test">
-                                    <color key="baseBackgroundColor" systemColor="systemRedColor"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="testAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YVG-i7-4bu"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tly-6y-kie">
                                 <rect key="frame" x="137" y="626" width="140" height="40"/>
                                 <constraints>
@@ -249,16 +238,32 @@
                                     <action selector="backButtonTapped:" destination="v39-63-2d5" eventType="touchUpInside" id="zao-Nt-aXv"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q3z-jU-Bjv">
+                                <rect key="frame" x="15" y="308" width="384" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="d5s-qE-91m"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="CgW-z5-Vja"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="CgW-z5-Vja" firstAttribute="trailing" secondItem="q3z-jU-Bjv" secondAttribute="trailing" constant="15" id="AFF-GB-arw"/>
+                            <constraint firstItem="q3z-jU-Bjv" firstAttribute="centerX" secondItem="nUP-x7-q0W" secondAttribute="centerX" id="JCm-pM-55y"/>
                             <constraint firstItem="Pr0-31-m0R" firstAttribute="centerX" secondItem="nUP-x7-q0W" secondAttribute="centerX" id="Lyk-4O-dyu"/>
+                            <constraint firstItem="q3z-jU-Bjv" firstAttribute="leading" secondItem="CgW-z5-Vja" secondAttribute="leading" constant="15" id="Uu0-8z-lJX"/>
                             <constraint firstItem="CgW-z5-Vja" firstAttribute="bottom" secondItem="Pr0-31-m0R" secondAttribute="bottom" constant="70" id="bpA-dK-RdG"/>
+                            <constraint firstItem="q3z-jU-Bjv" firstAttribute="centerY" secondItem="nUP-x7-q0W" secondAttribute="centerY" constant="100" id="oq2-De-xYt"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Results" id="yDm-MQ-4CG"/>
                     <navigationItem key="navigationItem" id="ucf-b1-WNn"/>
+                    <connections>
+                        <outlet property="resultsLabel" destination="q3z-jU-Bjv" id="nI9-8Q-1Gg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sEJ-xi-ZRS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -268,9 +273,6 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

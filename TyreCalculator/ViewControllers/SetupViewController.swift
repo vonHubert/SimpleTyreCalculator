@@ -74,21 +74,26 @@ class SetupViewController: UIViewController {
         tyreHeigthPickerAfter.delegate = self
     }
     
-    // MARK: Pickers Data
+    // MARK: Pickers Data Source
+    
     var rimSizesData = PickerData.getRimSizesData()
     var rimWidthsData = PickerData.getRimWidthsData()
     var rimOffsetsData = PickerData.getRimOffsetsData()
     var tyreWidthsData = PickerData.getTyreWidthsData()
     var tyreHeightsData = PickerData.getTyreHeigthsData()
     
-    // MARK: Actions
+    // MARK: Navigation
+
     
-    @IBAction func testAction(_ sender: Any) {
-        print(wheelBefore)
-        print(wheelAfter)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let resultsVC = segue.destination as? ResultsViewController else { return }
+        resultsVC.wheelBefore = wheelBefore
+        resultsVC.wheelAfter = wheelAfter
     }
-    
 }
+
+
+// MARK: Pickers Setup
 
 extension SetupViewController:UIPickerViewDataSource, UIPickerViewDelegate {
     
