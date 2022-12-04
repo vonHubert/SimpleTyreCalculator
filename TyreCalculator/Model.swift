@@ -16,8 +16,14 @@ struct WheelSet {
     var tyreWidth: Float // set in mm, 10mm increment, min 135, max 375
     var tyreHeight: Float // set in % of tyreWidth, 5% increment, min 20, max 100
     
+    
+    var rimSizeMM: Float { rimSize * 25.4 }
+    var rimWidthMM: Float { rimWidth * 25.4 }
+
+    var tyreHeightMM: Float { tyreWidth * tyreHeight / 100 }
+    
     var totalWheelDiameter: Float {
-        (rimSize * 25.4) + 2 * (tyreWidth * tyreHeight / 100)
+        rimSizeMM + 2 * tyreHeightMM
     }
     
     var totalWheelCircle: Float {
@@ -60,8 +66,8 @@ struct WheelSet {
        let rimDiameterChange = wheelAfterInput.rimSize - wheelBeforeInput.rimSize
         var rimDiameterMessage = ""
         
-        if rimDiameterChange < 1 {
-            rimDiameterMessage = "New rim diameter of \(String(format: "%.0f",wheelAfterInput.rimSize)) Inches is \(String(format: "%.0f", -rimDiameterChange)) Inches lower and may cause scrubbing on brake calipers"
+        if rimDiameterChange < 0 {
+            rimDiameterMessage = "New rim diameter of \(String(format: "%.0f",wheelAfterInput.rimSize)) Inches is \(String(format: "%.0f", rimDiameterChange)) Inches lower and may cause scrubbing on brake calipers"
         } else {
             rimDiameterMessage = "New rim diameter of \(String(format: "%.0f",wheelAfterInput.rimSize)) Inches is not expected to cause fitment issues"
         }
@@ -155,7 +161,7 @@ struct PickerData {
     
     static func getRimOffsetsData() -> [String] {
         var rimOffsets = [String]()
-        var offset = -20
+        var offset = -26
         while offset <= 50 {
             offset += 2
             rimOffsets.append(String(offset))

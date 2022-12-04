@@ -9,14 +9,37 @@ import UIKit
 
 class ResultsViewController: UIViewController {
     
-    
+    // MARK: IB Outlets
     @IBOutlet var resultsTableView: UITableView!
+    @IBOutlet var suspensionImage: UIImageView!
+    @IBOutlet var switchBeforeAfter: UISwitch!
     
+    // hub image
     @IBOutlet var hubImageHeight: NSLayoutConstraint!
     
-    @IBOutlet var suspensionImage: UIImageView!
+    // upper rim part
+    @IBOutlet var rimUpperPartOffset: NSLayoutConstraint!
+    @IBOutlet var rimUpperPart: UIView!
+    @IBOutlet var rimUpperPartVerticalPos: NSLayoutConstraint!
+    @IBOutlet var rimUpperPartWidth: NSLayoutConstraint!
+    // lower rim part
+    @IBOutlet var rimLowerPartOffset: NSLayoutConstraint!
+    @IBOutlet var rimLowerPart: UIView!
+    @IBOutlet var rimLowerPartVerticalPos: NSLayoutConstraint!
+    @IBOutlet var rimLowerPartWidth: NSLayoutConstraint!
     
-
+    // tyre upper part
+    @IBOutlet var tyreUpperPart: UIView!
+    @IBOutlet var tyreUpperPartHeight: NSLayoutConstraint!
+    @IBOutlet var tyreUpperPartWidth: NSLayoutConstraint!
+    
+    // tyre lower part
+    @IBOutlet var tyreLowerPart: UIView!
+    @IBOutlet var tyreLowerPartHeight: NSLayoutConstraint!
+    @IBOutlet var tyreLowerPartWidth: NSLayoutConstraint!
+    
+    // MARK: IB Variables
+    
     var wheelBefore: WheelSet = WheelSet(
         rimSize: 13,
         rimWidth: 5,
@@ -32,9 +55,9 @@ class ResultsViewController: UIViewController {
         tyreHeight: 20
     )
     
-    
-    
     var results:[ResultsMessage] = []
+    
+    // MARK: viewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,12 +66,47 @@ class ResultsViewController: UIViewController {
         setVisual()
     }
     
+    // MARK: Functions
+    
     func setVisual() {
-        var scaleCoefficient: CGFloat = suspensionImage.frame.width / 390.0
-        hubImageHeight.constant = 110.0 * scaleCoefficient
+         let scaleCoefficient: Float = Float(suspensionImage.frame.width) / 390.0 / 3.0
+        var selectedWheel = switchBeforeAfter.isOn ? wheelAfter : wheelBefore
+        
+        
+        // set HubSize
+        hubImageHeight.constant = CGFloat(selectedWheel.rimSizeMM  * scaleCoefficient)
         print(scaleCoefficient)
+        
+        // round corners
+        rimUpperPart.layer.cornerRadius = rimUpperPart.frame.height
+        rimUpperPart.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        rimLowerPart.layer.cornerRadius = rimLowerPart.frame.height 
+        rimLowerPart.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        tyreUpperPart.layer.cornerRadius = tyreUpperPart.frame.height / 2
+        tyreLowerPart.layer.cornerRadius = tyreLowerPart.frame.height / 2
+        
+        // set rimSize (vertical constraint)
+        rimUpperPartVerticalPos.constant = CGFloat(selectedWheel.rimSizeMM * scaleCoefficient * 0.5)
+        rimLowerPartVerticalPos.constant = -CGFloat(selectedWheel.rimSizeMM * scaleCoefficient * 0.5)
+        
+        // set rimOffset (horzontal constraint)
+        rimUpperPartOffset.constant = CGFloat(5.0 + selectedWheel.rimOffset  * scaleCoefficient)
+        rimLowerPartOffset.constant = CGFloat(5.0 + selectedWheel.rimOffset  * scaleCoefficient)
+        
+        // set rimWidth
+        rimUpperPartWidth.constant = CGFloat(selectedWheel.rimWidthMM * scaleCoefficient)
+        rimLowerPartWidth.constant = CGFloat(selectedWheel.rimWidthMM * scaleCoefficient)
+        
+        // set tyreHeight
+        tyreUpperPartHeight.constant = CGFloat(selectedWheel.tyreHeightMM * scaleCoefficient)
+        tyreLowerPartHeight.constant = CGFloat(selectedWheel.tyreHeightMM * scaleCoefficient)
+        
+        // set tyreWidths
+        tyreUpperPartWidth.constant = CGFloat(selectedWheel.tyreWidth * scaleCoefficient)
+        tyreLowerPartWidth.constant = CGFloat(selectedWheel.tyreWidth * scaleCoefficient)
     }
     
+   
     func generateResults() {
         results.append(ResultsMessage(
             title: "Spidometer:",
@@ -76,12 +134,20 @@ class ResultsViewController: UIViewController {
         )
     }
     
+    // MARK: IB Actions
+
     
+    @IBAction func switchBeforeAfterActivated(_ sender: UISwitch) {
+        setVisual()
+    }
     
     @IBAction func backButtonTapped(_ sender: UIButton) {
         dismiss(animated: true)
     }
 }
+
+// MARK: TableView Extension
+
 
 extension ResultsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -101,16 +167,3 @@ extension ResultsViewController: UITableViewDataSource, UITableViewDelegate {
     
 }
 
-
-//    let sizeMultiplier:CGFloat = 50
-
-//    @IBAction func offsetSlider(_ sender: UISlider) {
-//        offsetLabel.text = "\(tyreView.frame.size.height)"
-//        offsetConstraint.constant = CGFloat(offsetSlider.value) * sizeMultiplier
-//
-//    }
-//
-//    @IBAction func widthSlider(_ sender: UISlider) {
-//        tyreView.frame.size.height = CGFloat(offsetSlider.value) * sizeMultiplier
-//    }
-//
