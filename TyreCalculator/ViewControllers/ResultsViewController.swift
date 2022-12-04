@@ -11,6 +11,7 @@ class ResultsViewController: UIViewController {
     
     
     @IBOutlet var resultsLabel: UILabel!
+    @IBOutlet var resultsTableView: UITableView!
     
     var wheelBefore: WheelSet = WheelSet(
         rimSize: 13,
@@ -28,9 +29,12 @@ class ResultsViewController: UIViewController {
         tyreHeight: 20
     )
     
+    var results:[String:String] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //resultsTableView.dataSource = self
+        //resultsTableView.delegate = self
         showResults()
     }
     
@@ -46,11 +50,40 @@ class ResultsViewController: UIViewController {
 """
     }
     
+    func generateResults() {
+        results = [
+            "Spidometer:":"\(WheelSet.compareSpidometer(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))",
+            "Wheel size fitment:":"\(WheelSet.checkTyreDiameterFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))",
+            "Rim diameter fitment:":"\(WheelSet.checkRimDiameterFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))",
+            "Tyre to rim fitment:":"\(WheelSet.checkTireWidthFitment(wheelSetInput: wheelAfter))",
+            "Suspension fitment:":"\(WheelSet.checkInnerWheelFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))",
+            "Fender fitment:":"\(WheelSet.checkOuterWheelFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))"
+        ]
+    }
+    
     @IBAction func backButtonTapped(_ sender: UIButton) {
         dismiss(animated: true)
     }
 }
 
+extension ResultsViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        results.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "message", for: indexPath)
+        let title = Array(results.keys)[indexPath.row]
+        let message = Array(results.values)[indexPath.row]
+        var content = cell.defaultContentConfiguration()
+        content.text = title
+        content.text = message
+        cell.contentConfiguration = content
+        return cell
+    }
+    
+    
+}
 
 
 //    let sizeMultiplier:CGFloat = 50
