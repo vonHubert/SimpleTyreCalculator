@@ -43,6 +43,7 @@ class SetupViewController: UIViewController {
         tyreWidth: 135,
         tyreHeight: 20
     )
+    
     // MARK: viewDidLoad
     
     override func viewDidLoad() {

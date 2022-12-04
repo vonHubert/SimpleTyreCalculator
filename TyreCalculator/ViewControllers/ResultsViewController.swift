@@ -10,9 +10,13 @@ import UIKit
 class ResultsViewController: UIViewController {
     
     
-    @IBOutlet var resultsLabel: UILabel!
     @IBOutlet var resultsTableView: UITableView!
     
+    @IBOutlet var hubImageHeight: NSLayoutConstraint!
+    
+    @IBOutlet var suspensionImage: UIImageView!
+    
+
     var wheelBefore: WheelSet = WheelSet(
         rimSize: 13,
         rimWidth: 5,
@@ -20,7 +24,6 @@ class ResultsViewController: UIViewController {
         tyreWidth: 135,
         tyreHeight: 20
     )
-    
     var wheelAfter: WheelSet = WheelSet(
         rimSize: 13,
         rimWidth: 5,
@@ -37,6 +40,13 @@ class ResultsViewController: UIViewController {
         super.viewDidLoad()
         resultsTableView.dataSource = self
         generateResults()
+        setVisual()
+    }
+    
+    func setVisual() {
+        var scaleCoefficient: CGFloat = suspensionImage.frame.width / 390.0
+        hubImageHeight.constant = 110.0 * scaleCoefficient
+        print(scaleCoefficient)
     }
     
     func generateResults() {
