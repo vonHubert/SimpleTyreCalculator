@@ -29,7 +29,9 @@ class ResultsViewController: UIViewController {
         tyreHeight: 20
     )
     
-    var results:[String:String] = [:]
+    
+    
+    var results:[ResultsMessage] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,14 +40,30 @@ class ResultsViewController: UIViewController {
     }
     
     func generateResults() {
-        results = [
-            "Spidometer:":"\(WheelSet.compareSpidometer(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))",
-            "Wheel size fitment:":"\(WheelSet.checkTyreDiameterFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))",
-            "Rim diameter fitment:":"\(WheelSet.checkRimDiameterFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))",
-            "Tyre to rim fitment:":"\(WheelSet.checkTireWidthFitment(wheelSetInput: wheelAfter))",
-            "Suspension fitment:":"\(WheelSet.checkInnerWheelFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))",
-            "Fender fitment:":"\(WheelSet.checkOuterWheelFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))"
-        ]
+        results.append(ResultsMessage(
+            title: "Spidometer:",
+            message: "\(WheelSet.compareSpidometer(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))")
+        )
+        results.append(ResultsMessage(
+            title: "Wheel size fitment:",
+            message: "\(WheelSet.checkTyreDiameterFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))")
+        )
+        results.append(ResultsMessage(
+            title: "Rim diameter fitment:",
+            message: "\(WheelSet.checkRimDiameterFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))")
+        )
+        results.append(ResultsMessage(
+            title: "Tyre to rim fitment:",
+            message: "\(WheelSet.checkTireWidthFitment(wheelSetInput: wheelAfter))")
+        )
+        results.append(ResultsMessage(
+            title: "Suspension fitment:",
+            message: "\(WheelSet.checkInnerWheelFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))")
+        )
+        results.append(ResultsMessage(
+            title: "Fender fitment:",
+            message: "\(WheelSet.checkOuterWheelFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))")
+        )
     }
     
     
@@ -62,11 +80,10 @@ extension ResultsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "message", for: indexPath)
-        let title = Array(results.keys)[indexPath.row]
-        let message = Array(results.values)[indexPath.row]
+        let result = results[indexPath.row]
         var content = cell.defaultContentConfiguration()
-        content.text = title
-        content.secondaryText = message
+        content.text = result.title
+        content.secondaryText = result.message
         cell.contentConfiguration = content
         return cell
     }

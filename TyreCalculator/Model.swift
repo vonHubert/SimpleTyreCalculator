@@ -184,3 +184,7 @@ struct PickerData {
     }
 }
 
+struct ResultsMessage {
+    var title: String
+    var message: String
+}
