@@ -33,21 +33,8 @@ class ResultsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //resultsTableView.dataSource = self
-        //resultsTableView.delegate = self
-        showResults()
-    }
-    
-    
-     func showResults() {
-        resultsLabel.text = """
-   \(WheelSet.compareSpidometer(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))
-   \(WheelSet.checkTyreDiameterFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))
-   \(WheelSet.checkRimDiameterFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))
-   \(WheelSet.checkTireWidthFitment(wheelSetInput: wheelAfter))
-   \(WheelSet.checkInnerWheelFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))
-   \(WheelSet.checkOuterWheelFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))
-"""
+        resultsTableView.dataSource = self
+        generateResults()
     }
     
     func generateResults() {
@@ -60,6 +47,8 @@ class ResultsViewController: UIViewController {
             "Fender fitment:":"\(WheelSet.checkOuterWheelFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))"
         ]
     }
+    
+    
     
     @IBAction func backButtonTapped(_ sender: UIButton) {
         dismiss(animated: true)
@@ -77,7 +66,7 @@ extension ResultsViewController: UITableViewDataSource, UITableViewDelegate {
         let message = Array(results.values)[indexPath.row]
         var content = cell.defaultContentConfiguration()
         content.text = title
-        content.text = message
+        content.secondaryText = message
         cell.contentConfiguration = content
         return cell
     }
