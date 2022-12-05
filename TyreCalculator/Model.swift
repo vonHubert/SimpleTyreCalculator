@@ -171,8 +171,8 @@ struct PickerData {
     
     static func getTyreWidthsData() -> [String] {
         var tyreWidths = [String]()
-        var width = 135
-        while width <= 375 {
+        var width = 155
+        while width <= 345 {
             width += 10
             tyreWidths.append(String(width))
         }
@@ -182,7 +182,7 @@ struct PickerData {
     static func getTyreHeigthsData() -> [String] {
         var tyreHeights = [String]()
         var height = 20
-        while height <= 100 {
+        while height <= 80 {
             height += 5
             tyreHeights.append(String(height))
         }
