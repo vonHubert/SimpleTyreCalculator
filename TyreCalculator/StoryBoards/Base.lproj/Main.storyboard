@@ -297,6 +297,10 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5UO-F3-qgo">
                                 <rect key="frame" x="159" y="66" width="61" height="7"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xFc-ek-MVd">
+                                        <rect key="frame" x="5" y="-3.5" width="51" height="7"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ax-qh-NXM">
                                         <rect key="frame" x="5" y="-3.5" width="51" height="7"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -306,6 +310,10 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="7" id="4us-uN-1Zi"/>
                                     <constraint firstAttribute="width" constant="61" id="68y-ZO-xLl"/>
+                                    <constraint firstItem="xFc-ek-MVd" firstAttribute="width" secondItem="5UO-F3-qgo" secondAttribute="width" multiplier="0.885246" constant="-3" id="7Jb-tV-nta"/>
+                                    <constraint firstItem="xFc-ek-MVd" firstAttribute="bottom" secondItem="5UO-F3-qgo" secondAttribute="centerY" id="Da6-oL-oUe"/>
+                                    <constraint firstItem="xFc-ek-MVd" firstAttribute="height" secondItem="5UO-F3-qgo" secondAttribute="height" id="Jb9-f5-WPz"/>
+                                    <constraint firstItem="xFc-ek-MVd" firstAttribute="centerX" secondItem="5UO-F3-qgo" secondAttribute="centerX" id="Lga-vE-i1h"/>
                                     <constraint firstItem="5ax-qh-NXM" firstAttribute="width" relation="lessThanOrEqual" secondItem="5UO-F3-qgo" secondAttribute="width" multiplier="0.885246" constant="-3" id="MGL-n9-UoS"/>
                                     <constraint firstAttribute="centerY" secondItem="5ax-qh-NXM" secondAttribute="bottom" id="UJs-bS-DIm"/>
                                     <constraint firstItem="5ax-qh-NXM" firstAttribute="centerX" secondItem="5UO-F3-qgo" secondAttribute="centerX" id="r19-UO-y8i"/>
@@ -346,6 +354,10 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XOy-Ir-YBQ">
                                 <rect key="frame" x="159" y="187" width="61" height="7"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="voa-9W-O32">
+                                        <rect key="frame" x="5" y="3.5" width="51" height="7"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fba-3a-PJm">
                                         <rect key="frame" x="5" y="3.5" width="51" height="7"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -354,10 +366,14 @@
                                 <color key="backgroundColor" systemColor="systemGrayColor"/>
                                 <constraints>
                                     <constraint firstItem="Fba-3a-PJm" firstAttribute="width" relation="lessThanOrEqual" secondItem="XOy-Ir-YBQ" secondAttribute="width" multiplier="0.885246" constant="-3" id="1zD-dP-Obu"/>
-                                    <constraint firstItem="Fba-3a-PJm" firstAttribute="centerX" secondItem="XOy-Ir-YBQ" secondAttribute="centerX" id="7Ub-uB-4Qd"/>
                                     <constraint firstAttribute="width" constant="61" id="8Hf-35-MGU"/>
                                     <constraint firstAttribute="height" constant="7" id="YRo-Mh-jKG"/>
+                                    <constraint firstItem="voa-9W-O32" firstAttribute="width" secondItem="XOy-Ir-YBQ" secondAttribute="width" multiplier="0.885246" constant="-3" id="fTJ-YD-6VT"/>
+                                    <constraint firstItem="voa-9W-O32" firstAttribute="height" secondItem="XOy-Ir-YBQ" secondAttribute="height" id="rrX-jL-8R8"/>
+                                    <constraint firstItem="voa-9W-O32" firstAttribute="top" secondItem="XOy-Ir-YBQ" secondAttribute="centerY" id="tN9-4h-O6r"/>
                                     <constraint firstItem="Fba-3a-PJm" firstAttribute="top" secondItem="XOy-Ir-YBQ" secondAttribute="centerY" id="tlM-DL-qM2"/>
+                                    <constraint firstItem="Fba-3a-PJm" firstAttribute="centerX" secondItem="XOy-Ir-YBQ" secondAttribute="centerX" id="uNb-Np-lvd"/>
+                                    <constraint firstItem="voa-9W-O32" firstAttribute="centerX" secondItem="XOy-Ir-YBQ" secondAttribute="centerX" id="w8d-Pf-k93"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zxq-DV-v8w">
@@ -392,7 +408,6 @@
                             <constraint firstItem="m1U-uE-yXb" firstAttribute="top" secondItem="hLO-Vq-meg" secondAttribute="bottom" constant="35" id="Fyi-kV-ZvM"/>
                             <constraint firstItem="XOy-Ir-YBQ" firstAttribute="centerX" secondItem="n93-Kd-c8d" secondAttribute="centerX" constant="5" id="G8J-73-FSc"/>
                             <constraint firstItem="Pr0-31-m0R" firstAttribute="top" secondItem="120-fJ-w6g" secondAttribute="bottom" constant="20" id="IbB-QD-7ac"/>
-                            <constraint firstItem="hLO-Vq-meg" firstAttribute="centerX" secondItem="Fba-3a-PJm" secondAttribute="centerX" id="L3c-9q-9wL"/>
                             <constraint firstItem="Pr0-31-m0R" firstAttribute="centerX" secondItem="nUP-x7-q0W" secondAttribute="centerX" id="Lyk-4O-dyu"/>
                             <constraint firstItem="zxq-DV-v8w" firstAttribute="centerX" secondItem="5UO-F3-qgo" secondAttribute="centerX" id="MHx-Lm-w4q"/>
                             <constraint firstItem="120-fJ-w6g" firstAttribute="top" secondItem="m1U-uE-yXb" secondAttribute="bottom" constant="15" id="SuG-vi-11B"/>
@@ -415,11 +430,13 @@
                         <outlet property="hubImageHeight" destination="0oZ-Ot-aDl" id="1mN-0M-oPY"/>
                         <outlet property="resultsTableView" destination="120-fJ-w6g" id="B15-cn-xYK"/>
                         <outlet property="rimLowerFiller" destination="Fba-3a-PJm" id="F8i-Zs-LzQ"/>
+                        <outlet property="rimLowerFillerWhiteInside" destination="voa-9W-O32" id="hGa-Sl-fu2"/>
                         <outlet property="rimLowerPart" destination="XOy-Ir-YBQ" id="zuK-Se-tGY"/>
                         <outlet property="rimLowerPartOffset" destination="G8J-73-FSc" id="tf7-YV-Rzd"/>
                         <outlet property="rimLowerPartVerticalPos" destination="5xh-3w-eIK" id="tBP-vf-W5H"/>
                         <outlet property="rimLowerPartWidth" destination="8Hf-35-MGU" id="zD8-tz-jhI"/>
                         <outlet property="rimUpperFiller" destination="5ax-qh-NXM" id="CUw-pc-Cn7"/>
+                        <outlet property="rimUpperFillerWhiteInside" destination="xFc-ek-MVd" id="LwB-Cp-vOf"/>
                         <outlet property="rimUpperPart" destination="5UO-F3-qgo" id="4f1-Gd-2Wb"/>
                         <outlet property="rimUpperPartOffset" destination="UqR-PM-JsX" id="3gU-cC-dlI"/>
                         <outlet property="rimUpperPartVerticalPos" destination="Z5X-5b-fsa" id="4wD-Lt-hOk"/>

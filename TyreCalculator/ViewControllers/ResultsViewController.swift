@@ -23,7 +23,7 @@ class ResultsViewController: UIViewController {
     @IBOutlet var rimUpperPartVerticalPos: NSLayoutConstraint!
     @IBOutlet var rimUpperPartWidth: NSLayoutConstraint!
     @IBOutlet var rimUpperFiller: UIView!
-    @IBOutlet var rimUpperFillerSystemColor: UIView!
+    @IBOutlet var rimUpperFillerWhiteInside: UIView!
     
     
     // lower rim part
@@ -32,7 +32,7 @@ class ResultsViewController: UIViewController {
     @IBOutlet var rimLowerPartVerticalPos: NSLayoutConstraint!
     @IBOutlet var rimLowerPartWidth: NSLayoutConstraint!
     @IBOutlet var rimLowerFiller: UIView!
-    @IBOutlet var rimLowerFillerSystemColor: UIView!
+    @IBOutlet var rimLowerFillerWhiteInside: UIView!
     
     
     // tyre upper part
@@ -110,15 +110,15 @@ class ResultsViewController: UIViewController {
         rimUpperPart.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         rimUpperFiller.layer.cornerRadius = rimUpperPart.frame.height
         rimUpperFiller.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-   //     rimUpperFillerSystemColor.layer.cornerRadius = rimUpperPart.frame.height
-    //    rimUpperFillerSystemColor.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        rimUpperFillerWhiteInside.layer.cornerRadius = rimUpperPart.frame.height
+        rimUpperFillerWhiteInside.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         
         rimLowerPart.layer.cornerRadius = rimLowerPart.frame.height
         rimLowerPart.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         rimLowerFiller.layer.cornerRadius = rimLowerPart.frame.height
         rimLowerFiller.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-    //    rimLowerFillerSystemColor.layer.cornerRadius = rimLowerPart.frame.height
-     //   rimLowerFillerSystemColor.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        rimLowerFillerWhiteInside.layer.cornerRadius = rimLowerPart.frame.height
+        rimLowerFillerWhiteInside.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         
         tyreUpperPart.layer.cornerRadius = tyreUpperPartHeight.constant / 2.5
         tyreLowerPart.layer.cornerRadius = tyreLowerPartHeight.constant / 2.5
@@ -187,9 +187,13 @@ extension ResultsViewController: UITableViewDataSource, UITableViewDelegate {
         var content = cell.defaultContentConfiguration()
         content.text = result.title
         content.secondaryText = result.message
+        //content.text.textColor = result.warning ? UIColor.red : UIColor.systemBackground
+        
         //  content.secondaryText = String(result.warning) // проверка что bool warning передается в tableView (работает)
         //  cell.textLabel?.textColor = result.warning ? UIColor.red : UIColor.black // ничего не делает (((
         cell.backgroundColor = result.warning ? UIColor.red : UIColor.systemBackground
+        cell.layer.cornerRadius = 5
+        cell.contentConfiguration = content
         
         return cell
     }
