@@ -145,7 +145,7 @@ struct PickerData {
     
     static func getRimWidthsData() -> [String] {
         var rimWidths = [String]()
-        var width = 5.0
+        var width = 5.5
         while width <= 12 {
             width += 0.5
             rimWidths.append(String(width))
