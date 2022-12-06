@@ -187,11 +187,7 @@ extension ResultsViewController: UITableViewDataSource, UITableViewDelegate {
         var content = cell.defaultContentConfiguration()
         content.text = result.title
         content.secondaryText = result.message
-        //content.text.textColor = result.warning ? UIColor.red : UIColor.systemBackground
-        
-        //  content.secondaryText = String(result.warning) // проверка что bool warning передается в tableView (работает)
-        //  cell.textLabel?.textColor = result.warning ? UIColor.red : UIColor.black // ничего не делает (((
-        cell.backgroundColor = result.warning ? UIColor.red : UIColor.systemBackground
+        content.textProperties.color = result.warning ? UIColor.red : UIColor.black
         cell.layer.cornerRadius = 5
         cell.contentConfiguration = content
         
