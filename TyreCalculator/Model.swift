@@ -30,7 +30,7 @@ struct WheelSet {
         totalWheelDiameter * Float(Double.pi)
     }
     
-    static func compareSpidometer(wheelBeforeInput: WheelSet, wheelAfterInput: WheelSet) -> String {
+    static func compareSpidometer(wheelBeforeInput: WheelSet, wheelAfterInput: WheelSet) -> (Message: String, Warning: Bool) {
         var speedometerDelta: Float {
             wheelAfterInput.totalWheelCircle / wheelBeforeInput.totalWheelCircle * 100 - 100
         }
@@ -38,44 +38,38 @@ struct WheelSet {
         var actualSpeed: Float {
             referenceSpeed * ( 1 + speedometerDelta / 100 )
         }
-        var spidometerMessage: String
         
         if speedometerDelta > 0 {
-            spidometerMessage = "Whith a new wheel set a speedometer will show speed \(String(format: "%.1f", speedometerDelta))% lower than actual, if it reads \(referenceSpeed) km/h, actual speed will be \(String(format: "%.1f", actualSpeed)) km/h"
+            return ( "Whith a new wheel set a speedometer will show speed \(String(format: "%.1f", speedometerDelta))% lower than actual, if it reads \(referenceSpeed) km/h, actual speed will be \(String(format: "%.1f", actualSpeed)) km/h", false)
         } else {
-            spidometerMessage = "Whith a new wheel set a speedometer will show speed \(String(format: "%.1f", speedometerDelta))% higher than actual, if it reads \(referenceSpeed) km/h, actual speed will be \(String(format: "%.1f", actualSpeed)) km/h"
+            return ("Whith a new wheel set a speedometer will show speed \(String(format: "%.1f", speedometerDelta))% higher than actual, if it reads \(referenceSpeed) km/h, actual speed will be \(String(format: "%.1f", actualSpeed)) km/h", false)
         }
-        return spidometerMessage
     }
     
-   static func checkTyreDiameterFitment(wheelBeforeInput: WheelSet, wheelAfterInput: WheelSet) -> String {
+   static func checkTyreDiameterFitment(wheelBeforeInput: WheelSet, wheelAfterInput: WheelSet) -> (Message: String, Warning: Bool) {
        
        let tyreDiameterChange = wheelAfterInput.totalWheelDiameter - wheelBeforeInput.totalWheelDiameter
-        var tyreDiameterMessage = ""
         
         if tyreDiameterChange > 15 {
-            tyreDiameterMessage = "New tyre diameter of \(String(format: "%.0f",wheelAfterInput.totalWheelDiameter))mm is \(String(format: "%.0f",tyreDiameterChange))mm higher and may cause scrubbing on wheel archs"
+            return ("New tyre diameter of \(String(format: "%.0f",wheelAfterInput.totalWheelDiameter))mm is \(String(format: "%.0f",tyreDiameterChange))mm higher and may cause scrubbing on wheel archs", true)
         } else {
-            tyreDiameterMessage = "New tyre diameter of \(String(format: "%.0f",wheelAfterInput.totalWheelDiameter))mm is not expected to cause fitment issues"
+            return ("New tyre diameter of \(String(format: "%.0f",wheelAfterInput.totalWheelDiameter))mm is not expected to cause fitment issues", false)
         }
-        return tyreDiameterMessage
     }
 
-   static func checkRimDiameterFitment(wheelBeforeInput: WheelSet, wheelAfterInput: WheelSet) -> String {
+   static func checkRimDiameterFitment(wheelBeforeInput: WheelSet, wheelAfterInput: WheelSet) -> (Message: String, Warning: Bool) {
        
        let rimDiameterChange = wheelAfterInput.rimSize - wheelBeforeInput.rimSize
-        var rimDiameterMessage = ""
         
         if rimDiameterChange < 0 {
-            rimDiameterMessage = "New rim diameter of \(String(format: "%.0f",wheelAfterInput.rimSize)) Inches is \(String(format: "%.0f", rimDiameterChange)) Inches lower and may cause scrubbing on brake calipers"
+            return ("New rim diameter of \(String(format: "%.0f",wheelAfterInput.rimSize)) Inches is \(String(format: "%.0f", rimDiameterChange)) Inches lower and may cause scrubbing on brake calipers", true)
         } else {
-            rimDiameterMessage = "New rim diameter of \(String(format: "%.0f",wheelAfterInput.rimSize)) Inches is not expected to cause fitment issues"
+            return ("New rim diameter of \(String(format: "%.0f",wheelAfterInput.rimSize)) Inches is not expected to cause fitment issues", false)
         }
-        return rimDiameterMessage
     }
 
     
-    static func checkTireWidthFitment(wheelSetInput: WheelSet) -> String {
+    static func checkTireWidthFitment(wheelSetInput: WheelSet) -> (Message: String, Warning: Bool) {
         var idealTyreWidthCorrection: Float {
             switch wheelSetInput.rimWidth {
             case 10.5...12 : return 10.0
@@ -90,17 +84,17 @@ struct WheelSet {
         var maximumTyreWidth: Float { idealTyreWidth + 15 }
         
         if wheelSetInput.tyreWidth < minimumTyreWidth {
-            return "This tyre is too narrow for selected rim width"
+            return ("This tyre is too narrow for selected rim width", true)
         } else if wheelSetInput.tyreWidth > maximumTyreWidth {
-            return "This tyre is too wide for selected rim width"
+            return ("This tyre is too wide for selected rim width", true)
         } else {
-            return "This tyre width is correct for selected rim width"
+            return ("This tyre width is correct for selected rim width", false)
         }
     }
     
     //checkTireFitment(wheelSetInput: wheelAfter)
     
-    static func checkInnerWheelFitment(wheelBeforeInput: WheelSet, wheelAfterInput: WheelSet) -> String {
+    static func checkInnerWheelFitment(wheelBeforeInput: WheelSet, wheelAfterInput: WheelSet) -> (Message: String, Warning: Bool) {
         var innerTyreWallPositionBefore: Float {
             wheelBeforeInput.tyreWidth / 2 + wheelBeforeInput.rimOffset
         }
@@ -113,15 +107,15 @@ struct WheelSet {
         
         switch innerTyreWallPositionChange {
         case 15...:
-            return "Inner tyre wall is \(Int(innerTyreWallPositionChange)) mm. closer to suspension components and may cause scrubbing. Conscider narrower rims and tyres or lower offset"
+            return ("Inner tyre wall is \(Int(innerTyreWallPositionChange)) mm. closer to suspension components and may cause scrubbing. Conscider narrower rims and tyres or lower offset", true)
         case -5 ... 15:
-            return "New tyre and rim width and offset combination is close to initial. No problems expected."
+            return ("New tyre and rim width and offset combination is close to initial. No problems expected.", false)
         default:
-            return "Inner tyre wall is \(Int(-innerTyreWallPositionChange)) mm. futher away from suspencion components. No problems expected."
+            return ("Inner tyre wall is \(Int(-innerTyreWallPositionChange)) mm. futher away from suspencion components. No problems expected.", false)
         }
     }
     
-    static func checkOuterWheelFitment(wheelBeforeInput: WheelSet, wheelAfterInput: WheelSet) -> String {
+    static func checkOuterWheelFitment(wheelBeforeInput: WheelSet, wheelAfterInput: WheelSet) -> (Message: String, Warning: Bool) {
         var outerTyreWallPositionBefore: Float {
             wheelBeforeInput.tyreWidth / 2 - wheelBeforeInput.rimOffset
         }
@@ -134,11 +128,11 @@ struct WheelSet {
         
         switch outerTyreWallPositionChange {
         case 15...:
-            return "Outer tyre wall sticks \(Int(outerTyreWallPositionChange)) mm. futher away and may cause scrubbing on wheel archs. Conscider narrower rims and tyres or higher offset"
+            return ("Outer tyre wall sticks \(Int(outerTyreWallPositionChange)) mm. futher away and may cause scrubbing on wheel archs. Conscider narrower rims and tyres or higher offset", true)
         case -5 ... 15:
-            return "New tyre and rim width and offset combination is close to initial. No problems expected."
+            return ("New tyre and rim width and offset combination is close to initial. No problems expected.", false)
         default:
-            return "Inner tyre wall sticks \(Int(-outerTyreWallPositionChange)) mm. out less in a wheel arch. No problems expected. May look ugly though)"
+            return ("Inner tyre wall sticks \(Int(-outerTyreWallPositionChange)) mm. out less in a wheel arch. No problems expected. May look ugly though)", false)
         }
     }
     
@@ -193,4 +187,7 @@ struct PickerData {
 struct ResultsMessage {
     var title: String
     var message: String
+    var warning: Bool
 }
+
+

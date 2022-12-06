@@ -23,14 +23,16 @@ class ResultsViewController: UIViewController {
     @IBOutlet var rimUpperPartVerticalPos: NSLayoutConstraint!
     @IBOutlet var rimUpperPartWidth: NSLayoutConstraint!
     @IBOutlet var rimUpperFiller: UIView!
-
- 
+    @IBOutlet var rimUpperFillerSystemColor: UIView!
+    
+    
     // lower rim part
     @IBOutlet var rimLowerPartOffset: NSLayoutConstraint!
     @IBOutlet var rimLowerPart: UIView!
     @IBOutlet var rimLowerPartVerticalPos: NSLayoutConstraint!
     @IBOutlet var rimLowerPartWidth: NSLayoutConstraint!
     @IBOutlet var rimLowerFiller: UIView!
+    @IBOutlet var rimLowerFillerSystemColor: UIView!
     
     
     // tyre upper part
@@ -69,6 +71,7 @@ class ResultsViewController: UIViewController {
         resultsTableView.dataSource = self
         generateResults()
         setVisual()
+        print(results)
     }
     
     // MARK: Functions
@@ -92,7 +95,7 @@ class ResultsViewController: UIViewController {
         // set rimWidth
         rimUpperPartWidth.constant = CGFloat(selectedWheel.rimWidthMM * scaleCoefficient)
         rimLowerPartWidth.constant = CGFloat(selectedWheel.rimWidthMM * scaleCoefficient)
-
+        
         
         // set tyreHeight
         tyreUpperPartHeight.constant = CGFloat(selectedWheel.tyreHeightMM * scaleCoefficient)
@@ -107,50 +110,62 @@ class ResultsViewController: UIViewController {
         rimUpperPart.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         rimUpperFiller.layer.cornerRadius = rimUpperPart.frame.height
         rimUpperFiller.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+   //     rimUpperFillerSystemColor.layer.cornerRadius = rimUpperPart.frame.height
+    //    rimUpperFillerSystemColor.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         
         rimLowerPart.layer.cornerRadius = rimLowerPart.frame.height
         rimLowerPart.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         rimLowerFiller.layer.cornerRadius = rimLowerPart.frame.height
         rimLowerFiller.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+    //    rimLowerFillerSystemColor.layer.cornerRadius = rimLowerPart.frame.height
+     //   rimLowerFillerSystemColor.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         
         tyreUpperPart.layer.cornerRadius = tyreUpperPartHeight.constant / 2.5
         tyreLowerPart.layer.cornerRadius = tyreLowerPartHeight.constant / 2.5
         
     }
     
-   
+    
     func generateResults() {
         results.append(ResultsMessage(
             title: "Spidometer:",
-            message: "\(WheelSet.compareSpidometer(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))")
-        )
+            message: WheelSet.compareSpidometer(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Message,
+            warning: WheelSet.compareSpidometer(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Warning
+        ))
         results.append(ResultsMessage(
             title: "Wheel size fitment:",
-            message: "\(WheelSet.checkTyreDiameterFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))")
-        )
+            message: WheelSet.checkTyreDiameterFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Message,
+            warning: WheelSet.checkTyreDiameterFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Warning
+        ))
         results.append(ResultsMessage(
             title: "Rim diameter fitment:",
-            message: "\(WheelSet.checkRimDiameterFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))")
-        )
+            message: WheelSet.checkRimDiameterFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Message,
+            warning: WheelSet.checkRimDiameterFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Warning
+        ))
         results.append(ResultsMessage(
             title: "Tyre to rim fitment:",
-            message: "\(WheelSet.checkTireWidthFitment(wheelSetInput: wheelAfter))")
-        )
+            message: WheelSet.checkTireWidthFitment(wheelSetInput: wheelAfter).Message,
+            warning: WheelSet.checkTireWidthFitment(wheelSetInput: wheelAfter).Warning
+        ))
         results.append(ResultsMessage(
             title: "Suspension fitment:",
-            message: "\(WheelSet.checkInnerWheelFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))")
-        )
+            message: WheelSet.checkInnerWheelFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Message,
+            warning: WheelSet.checkInnerWheelFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Warning
+        ))
         results.append(ResultsMessage(
             title: "Fender fitment:",
-            message: "\(WheelSet.checkOuterWheelFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter))")
-        )
+            message: WheelSet.checkOuterWheelFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Message,
+            warning: WheelSet.checkOuterWheelFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Warning
+        ))
+        
     }
     
     // MARK: IB Actions
-
+    
     
     @IBAction func switchBeforeAfterActivated(_ sender: UISwitch) {
         setVisual()
+        print(results)
     }
     
     @IBAction func backButtonTapped(_ sender: UIButton) {
@@ -172,10 +187,12 @@ extension ResultsViewController: UITableViewDataSource, UITableViewDelegate {
         var content = cell.defaultContentConfiguration()
         content.text = result.title
         content.secondaryText = result.message
-        cell.contentConfiguration = content
+        //  content.secondaryText = String(result.warning) // проверка что bool warning передается в tableView (работает)
+        //  cell.textLabel?.textColor = result.warning ? UIColor.red : UIColor.black // ничего не делает (((
+        cell.backgroundColor = result.warning ? UIColor.red : UIColor.systemBackground
+        
         return cell
     }
-    
     
 }
 
