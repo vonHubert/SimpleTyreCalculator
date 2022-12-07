@@ -102,7 +102,7 @@ class ResultsViewController: UIViewController {
         let selectedWheel = switchBeforeAfter.isOn ? wheelAfter : wheelBefore
         
         // set HubSize
-        hubImageHeight.constant = CGFloat(selectedWheel.rimSizeMM  * scaleCoefficient)
+        hubImageHeight.constant = CGFloat(selectedWheel.rimSizeMM  * scaleCoefficient * 1.01)
         
         // set brake size
         brakeRotorSize.constant = CGFloat(wheelBefore.rimSizeMM  * scaleCoefficient)
@@ -146,20 +146,20 @@ class ResultsViewController: UIViewController {
         tyreLowerPart.layer.cornerRadius = tyreLowerPartHeight.constant / 2.5
         
         // set scheme labels
-        wheelSizeLabel.text = "\(Int(selectedWheel.totalWheelDiameter))mm"
-        tyreWidthLabel.text = "\(Int(selectedWheel.tyreWidth))mm"
-        tyreHeightLabelMM.text = "\(Int(selectedWheel.tyreHeightMM))mm"
-        rimWidthLabelMM.text = "\(Int(selectedWheel.rimWidthMM))mm"
+        wheelSizeLabel.text = "\(Int(selectedWheel.totalWheelDiameter)) mm"
+        tyreWidthLabel.text = "\(Int(selectedWheel.tyreWidth)) mm"
+        tyreHeightLabelMM.text = "\(Int(selectedWheel.tyreHeightMM)) mm"
+        rimWidthLabelMM.text = "\(Int(selectedWheel.rimWidthMM)) mm"
         
         // set left side labels
-        rimSizeLabel.text = "Rim size:\n\(Int(selectedWheel.rimSize))inch"
-        rimWidthLabelInch.text = "Rim width:\n\(Int(selectedWheel.rimWidth))inch"
-        rimOffsetLabel.text = "Rim offset:\n\(Int(selectedWheel.rimOffset))mm"
+        rimSizeLabel.text = "Rim size:\n\(Int(selectedWheel.rimSize)) inches"
+        rimWidthLabelInch.text = "Rim width:\n\(Int(selectedWheel.rimWidth))inches"
+        rimOffsetLabel.text = "Rim offset:\n\(Int(selectedWheel.rimOffset)) mm"
         
         // set right side labels
-        tireWidthLabel.text = "Tyre width:\n\(Int(selectedWheel.tyreWidth))mm"
-        tyreHeightLabel.text = "Tyre height:\n\(Int(selectedWheel.tyreHeight))%"
-        tyreCircumference.text = "Circumference:\n\(Int(selectedWheel.totalWheelCircle))mm"
+        tireWidthLabel.text = "Tyre width:\n\(Int(selectedWheel.tyreWidth)) mm"
+        tyreHeightLabel.text = "Tyre height:\n\(Int(selectedWheel.tyreHeight)) %"
+        tyreCircumference.text = "Circumference:\n\(Int(selectedWheel.totalWheelCircle)) mm"
     }
     
     
