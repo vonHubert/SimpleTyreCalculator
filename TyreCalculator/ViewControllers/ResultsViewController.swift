@@ -10,6 +10,8 @@ import UIKit
 class ResultsViewController: UIViewController {
     
     // MARK: IB Outlets
+    
+    // misc
     @IBOutlet var resultsTableView: UITableView!
     @IBOutlet var suspensionImage: UIImageView!
     @IBOutlet var switchBeforeAfter: UISwitch!
@@ -24,16 +26,13 @@ class ResultsViewController: UIViewController {
     @IBOutlet var rimUpperPartWidth: NSLayoutConstraint!
     @IBOutlet var rimUpperFiller: UIView!
     @IBOutlet var rimUpperFillerWhiteInside: UIView!
-    
+    @IBOutlet var rimFillerWidth: NSLayoutConstraint!
     
     // lower rim part
-    @IBOutlet var rimLowerPartOffset: NSLayoutConstraint!
     @IBOutlet var rimLowerPart: UIView!
     @IBOutlet var rimLowerPartVerticalPos: NSLayoutConstraint!
-    @IBOutlet var rimLowerPartWidth: NSLayoutConstraint!
     @IBOutlet var rimLowerFiller: UIView!
     @IBOutlet var rimLowerFillerWhiteInside: UIView!
-    
     
     // tyre upper part
     @IBOutlet var tyreUpperPart: UIView!
@@ -42,8 +41,6 @@ class ResultsViewController: UIViewController {
     
     // tyre lower part
     @IBOutlet var tyreLowerPart: UIView!
-    @IBOutlet var tyreLowerPartHeight: NSLayoutConstraint!
-    @IBOutlet var tyreLowerPartWidth: NSLayoutConstraint!
     
     // brake rotor
     @IBOutlet var brakeRotorSize: NSLayoutConstraint!
@@ -91,13 +88,12 @@ class ResultsViewController: UIViewController {
         super.viewDidLoad()
         resultsTableView.dataSource = self
         generateResults()
-        setVisual()
-        print(results)
+        setVisualScheme()
     }
     
     // MARK: Functions
     
-    func setVisual() {
+    func setVisualScheme() {
         let scaleCoefficient: Float = Float(suspensionImage.frame.width) / 390.0 / 3.0
         let selectedWheel = switchBeforeAfter.isOn ? wheelAfter : wheelBefore
         
@@ -110,32 +106,29 @@ class ResultsViewController: UIViewController {
         // set rimSize (vertical constraint)
         rimUpperPartVerticalPos.constant = CGFloat(selectedWheel.rimSizeMM * scaleCoefficient * 0.5)
         rimLowerPartVerticalPos.constant = -CGFloat(selectedWheel.rimSizeMM * scaleCoefficient * 0.5)
-                
+        
         // set rimOffset (horzontal constraint)
         rimUpperPartOffset.constant = CGFloat(5.0 + selectedWheel.rimOffset  * scaleCoefficient)
-        rimLowerPartOffset.constant = CGFloat(5.0 + selectedWheel.rimOffset  * scaleCoefficient)
         
         // set rimWidth
         rimUpperPartWidth.constant = CGFloat(selectedWheel.rimWidthMM * scaleCoefficient)
-        rimLowerPartWidth.constant = CGFloat(selectedWheel.rimWidthMM * scaleCoefficient)
         
         // set tyreHeight
         tyreUpperPartHeight.constant = CGFloat(selectedWheel.tyreHeightMM * scaleCoefficient)
-        tyreLowerPartHeight.constant = CGFloat(selectedWheel.tyreHeightMM * scaleCoefficient)
         
         // set tyreWidths
         tyreUpperPartWidth.constant = CGFloat(selectedWheel.tyreWidth * scaleCoefficient)
-        tyreLowerPartWidth.constant = CGFloat(selectedWheel.tyreWidth * scaleCoefficient)
+        rimFillerWidth.constant = min(tyreUpperPartWidth.constant, rimUpperPartWidth.constant - 7)
         
         // round corners
-        rimUpperPart.layer.cornerRadius = rimUpperPart.frame.height
+        rimUpperPart.layer.cornerRadius = rimUpperPart.frame.height / 1.8
         rimUpperPart.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         rimUpperFiller.layer.cornerRadius = rimUpperPart.frame.height
         rimUpperFiller.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         rimUpperFillerWhiteInside.layer.cornerRadius = rimUpperPart.frame.height
         rimUpperFillerWhiteInside.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         
-        rimLowerPart.layer.cornerRadius = rimLowerPart.frame.height
+        rimLowerPart.layer.cornerRadius = rimLowerPart.frame.height / 1.8
         rimLowerPart.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         rimLowerFiller.layer.cornerRadius = rimLowerPart.frame.height
         rimLowerFiller.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
@@ -143,7 +136,7 @@ class ResultsViewController: UIViewController {
         rimLowerFillerWhiteInside.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         
         tyreUpperPart.layer.cornerRadius = tyreUpperPartHeight.constant / 2.5
-        tyreLowerPart.layer.cornerRadius = tyreLowerPartHeight.constant / 2.5
+        tyreLowerPart.layer.cornerRadius = tyreUpperPartHeight.constant / 2.5
         
         // set scheme labels
         wheelSizeLabel.text = "\(Int(selectedWheel.totalWheelDiameter)) mm"
@@ -199,10 +192,8 @@ class ResultsViewController: UIViewController {
     
     // MARK: IB Actions
     
-    
     @IBAction func switchBeforeAfterActivated(_ sender: UISwitch) {
-        setVisual()
-        print(results)
+        setVisualScheme()
     }
     
     @IBAction func backButtonTapped(_ sender: UIButton) {
@@ -211,7 +202,6 @@ class ResultsViewController: UIViewController {
 }
 
 // MARK: TableView Extension
-
 
 extension ResultsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -225,9 +215,7 @@ extension ResultsViewController: UITableViewDataSource, UITableViewDelegate {
         content.text = result.title
         content.secondaryText = result.message
         content.textProperties.color = result.warning ? UIColor.red : UIColor.black
-        cell.layer.cornerRadius = 5
         cell.contentConfiguration = content
-        
         return cell
     }
     
