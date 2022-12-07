@@ -26,6 +26,9 @@ class SetupViewController: UIViewController {
     @IBOutlet var tyreHeigthPickerBefore: UIPickerView!
     @IBOutlet var tyreHeigthPickerAfter: UIPickerView!
     
+    @IBOutlet var initialSetupLabel: UILabel!
+    @IBOutlet var newSetupLabel: UILabel!
+    
     // MARK: Public Properties
     
     var wheelBefore: WheelSet = WheelSet()
@@ -43,6 +46,8 @@ class SetupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initialSetupLabel.text = "Initial\n setup"
+        newSetupLabel.text = "New\n setup"
         
         rimSizePickerBefore.dataSource = self
         rimSizePickerBefore.delegate = self
