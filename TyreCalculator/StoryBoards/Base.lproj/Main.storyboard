@@ -620,7 +620,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Image" width="3749" height="3756"/>
+        <image name="Image" width="1024" height="1024"/>
         <image name="VerticlLong" width="108" height="1028"/>
         <image name="VerticlShort" width="96" height="291"/>
         <image name="brakeRotorTransp" width="295" height="771"/>

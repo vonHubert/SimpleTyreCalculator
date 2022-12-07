@@ -7,28 +7,33 @@
 
 import Foundation
 
+// MARK: Wheelset Model
+
 struct WheelSet {
-    // all variables are Float for ease of calculations
-    var rimSize: Float // diameter, set in inches, 1 inch increment.
-    var rimWidth: Float // diameter, set in inches, 0.5 inch increment, min 5, max 12
-    var rimOffset: Float // set in mm, min -65, max 65
     
-    var tyreWidth: Float // set in mm, 10mm increment, min 135, max 375
-    var tyreHeight: Float // set in % of tyreWidth, 5% increment, min 20, max 100
+// MARK: Wheelset Properties
     
+    // rim specks
+    var rimSize: Float = 13 // diameter, set in inches, 1 inch increment.
+    var rimWidth: Float = 6 // diameter, set in inches, 0.5 inch increment, min 5, max 12
+    var rimOffset: Float = -20 // set in mm, min -20, max 50
     
+    // tyre specks
+    var tyreWidth: Float = 165 // set in mm, 10mm increment, min 135, max 375
+    var tyreHeight: Float = 20 // set in % of tyreWidth, 5% increment, min 20, max 100
+    
+    // getters
     var rimSizeMM: Float { rimSize * 25.4 }
     var rimWidthMM: Float { rimWidth * 25.4 }
-
     var tyreHeightMM: Float { tyreWidth * tyreHeight / 100 }
-    
     var totalWheelDiameter: Float {
         rimSizeMM + 2 * tyreHeightMM
     }
-    
     var totalWheelCircle: Float {
         totalWheelDiameter * Float(Double.pi)
     }
+    
+    // MARK: Messages
     
     static func compareSpidometer(wheelBeforeInput: WheelSet, wheelAfterInput: WheelSet) -> (Message: String, Warning: Bool) {
         var speedometerDelta: Float {
@@ -68,6 +73,15 @@ struct WheelSet {
         }
     }
 
+    static func checkTyreHeight(wheelSetInput: WheelSet) -> (Message: String, Warning: Bool) {
+        
+        if wheelSetInput.tyreHeightMM < 100 {
+             return ("New tyre height of \(String(format: "%.0f",wheelSetInput.tyreHeightMM)) mm. is low and may cause tyre, rim and suspension damage on rough road", true)
+         } else {
+             return ("New tyre height of \(String(format: "%.0f",wheelSetInput.tyreHeightMM)) mm. is not expected to cause issues", false)
+         }
+     }
+
     
     static func checkTireWidthFitment(wheelSetInput: WheelSet) -> (Message: String, Warning: Bool) {
         var idealTyreWidthCorrection: Float {
@@ -91,8 +105,7 @@ struct WheelSet {
             return ("This tyre width is correct for selected rim width", false)
         }
     }
-    
-    //checkTireFitment(wheelSetInput: wheelAfter)
+
     
     static func checkInnerWheelFitment(wheelBeforeInput: WheelSet, wheelAfterInput: WheelSet) -> (Message: String, Warning: Bool) {
         var innerTyreWallPositionBefore: Float {
@@ -136,7 +149,53 @@ struct WheelSet {
         }
     }
     
+    static func generateResults(wheelBeforeInput: WheelSet, wheelAfterInput: WheelSet) -> [ResultsMessage] {
+        var results:[ResultsMessage] = []
+        var wheelBefore: WheelSet = wheelBeforeInput
+        var wheelAfter: WheelSet = wheelAfterInput
+        
+        results.append(ResultsMessage(
+            title: "Spidometer:",
+            message: WheelSet.compareSpidometer(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Message,
+            warning: WheelSet.compareSpidometer(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Warning
+        ))
+        results.append(ResultsMessage(
+            title: "Wheel size fitment:",
+            message: WheelSet.checkTyreDiameterFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Message,
+            warning: WheelSet.checkTyreDiameterFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Warning
+        ))
+        results.append(ResultsMessage(
+            title: "Rim diameter fitment:",
+            message: WheelSet.checkRimDiameterFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Message,
+            warning: WheelSet.checkRimDiameterFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Warning
+        ))
+        results.append(ResultsMessage(
+            title: "Tyre to rim fitment:",
+            message: WheelSet.checkTireWidthFitment(wheelSetInput: wheelAfter).Message,
+            warning: WheelSet.checkTireWidthFitment(wheelSetInput: wheelAfter).Warning
+        ))
+        results.append(ResultsMessage(
+            title: "Tyre sidewall height:",
+            message: WheelSet.checkTyreHeight(wheelSetInput: wheelAfter).Message,
+            warning: WheelSet.checkTyreHeight(wheelSetInput: wheelAfter).Warning
+        ))
+        
+        results.append(ResultsMessage(
+            title: "Suspension fitment:",
+            message: WheelSet.checkInnerWheelFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Message,
+            warning: WheelSet.checkInnerWheelFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Warning
+        ))
+        results.append(ResultsMessage(
+            title: "Fender fitment:",
+            message: WheelSet.checkOuterWheelFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Message,
+            warning: WheelSet.checkOuterWheelFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Warning
+        ))
+        return results
+    }
+    
 }
+
+// MARK: PickerView Selection Database
 
 struct PickerData {
     static func getRimSizesData() -> [String] {
@@ -145,7 +204,7 @@ struct PickerData {
     
     static func getRimWidthsData() -> [String] {
         var rimWidths = [String]()
-        var width = 5.5
+        var width: Double = 5
         while width <= 12 {
             width += 0.5
             rimWidths.append(String(width))
@@ -155,7 +214,7 @@ struct PickerData {
     
     static func getRimOffsetsData() -> [String] {
         var rimOffsets = [String]()
-        var offset = -26
+        var offset = -22
         while offset <= 50 {
             offset += 2
             rimOffsets.append(String(offset))
@@ -165,7 +224,7 @@ struct PickerData {
     
     static func getTyreWidthsData() -> [String] {
         var tyreWidths = [String]()
-        var width = 155
+        var width = 145
         while width <= 345 {
             width += 10
             tyreWidths.append(String(width))
@@ -175,7 +234,7 @@ struct PickerData {
     
     static func getTyreHeigthsData() -> [String] {
         var tyreHeights = [String]()
-        var height = 20
+        var height = 15
         while height <= 80 {
             height += 5
             tyreHeights.append(String(height))
@@ -183,6 +242,8 @@ struct PickerData {
         return tyreHeights
     }
 }
+
+// MARK: Results Message Model
 
 struct ResultsMessage {
     var title: String

@@ -60,13 +60,30 @@
 		32ADB2E2293A891F00C08003 /* TyreCalculator */ = {
 			isa = PBXGroup;
 			children = (
-				32C9EE22293BC16600CC7A0F /* Model.swift */,
 				32C9EE1F293BC12700CC7A0F /* App */,
+				32C0837C29410C9A008D9EB6 /* Assets */,
+				32C0837B29410C85008D9EB6 /* Model */,
 				32C9EE1E293BC10E00CC7A0F /* ViewControllers */,
 				32C9EE20293BC13200CC7A0F /* StoryBoards */,
 				32C9EE21293BC14300CC7A0F /* Misc */,
 			);
 			path = TyreCalculator;
+			sourceTree = "<group>";
+		};
+		32C0837B29410C85008D9EB6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				32C9EE22293BC16600CC7A0F /* Model.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		32C0837C29410C9A008D9EB6 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				32F47AD7293D021000B5F294 /* Assets.xcassets */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 		32C9EE1E293BC10E00CC7A0F /* ViewControllers */ = {
@@ -100,7 +117,6 @@
 			isa = PBXGroup;
 			children = (
 				32ADB2F1293A892100C08003 /* Info.plist */,
-				32F47AD7293D021000B5F294 /* Assets.xcassets */,
 			);
 			path = Misc;
 			sourceTree = "<group>";

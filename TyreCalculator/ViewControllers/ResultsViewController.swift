@@ -62,24 +62,10 @@ class ResultsViewController: UIViewController {
     @IBOutlet var tyreHeightLabel: UILabel!
     @IBOutlet var tyreCircumference: UILabel!
     
+    // MARK: Public Properties
     
-    // MARK: IB Variables
-    
-    var wheelBefore: WheelSet = WheelSet(
-        rimSize: 13,
-        rimWidth: 5,
-        rimOffset: -20,
-        tyreWidth: 135,
-        tyreHeight: 20
-    )
-    var wheelAfter: WheelSet = WheelSet(
-        rimSize: 13,
-        rimWidth: 5,
-        rimOffset: -20,
-        tyreWidth: 135,
-        tyreHeight: 20
-    )
-    
+    var wheelBefore: WheelSet = WheelSet()
+    var wheelAfter: WheelSet = WheelSet()
     var results:[ResultsMessage] = []
     
     // MARK: viewDidLoad
@@ -87,11 +73,11 @@ class ResultsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         resultsTableView.dataSource = self
-        generateResults()
+        results = WheelSet.generateResults(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter)
         setVisualScheme()
     }
     
-    // MARK: Functions
+    // MARK: Methods
     
     func setVisualScheme() {
         let scaleCoefficient: Float = Float(suspensionImage.frame.width) / 390.0 / 3.0
@@ -155,41 +141,7 @@ class ResultsViewController: UIViewController {
         tyreCircumference.text = "Circumference:\n\(Int(selectedWheel.totalWheelCircle)) mm"
     }
     
-    
-    func generateResults() {
-        results.append(ResultsMessage(
-            title: "Spidometer:",
-            message: WheelSet.compareSpidometer(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Message,
-            warning: WheelSet.compareSpidometer(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Warning
-        ))
-        results.append(ResultsMessage(
-            title: "Wheel size fitment:",
-            message: WheelSet.checkTyreDiameterFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Message,
-            warning: WheelSet.checkTyreDiameterFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Warning
-        ))
-        results.append(ResultsMessage(
-            title: "Rim diameter fitment:",
-            message: WheelSet.checkRimDiameterFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Message,
-            warning: WheelSet.checkRimDiameterFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Warning
-        ))
-        results.append(ResultsMessage(
-            title: "Tyre to rim fitment:",
-            message: WheelSet.checkTireWidthFitment(wheelSetInput: wheelAfter).Message,
-            warning: WheelSet.checkTireWidthFitment(wheelSetInput: wheelAfter).Warning
-        ))
-        results.append(ResultsMessage(
-            title: "Suspension fitment:",
-            message: WheelSet.checkInnerWheelFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Message,
-            warning: WheelSet.checkInnerWheelFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Warning
-        ))
-        results.append(ResultsMessage(
-            title: "Fender fitment:",
-            message: WheelSet.checkOuterWheelFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Message,
-            warning: WheelSet.checkOuterWheelFitment(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter).Warning
-        ))
-        
-    }
-    
+
     // MARK: IB Actions
     
     @IBAction func switchBeforeAfterActivated(_ sender: UISwitch) {
@@ -218,6 +170,5 @@ extension ResultsViewController: UITableViewDataSource, UITableViewDelegate {
         cell.contentConfiguration = content
         return cell
     }
-    
 }
 

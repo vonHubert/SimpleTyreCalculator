@@ -9,7 +9,7 @@ import UIKit
 
 class SetupViewController: UIViewController {
 
-    // MARK: Outlets
+    // MARK: IB Outlets
     
     @IBOutlet var rimSizePickerBefore: UIPickerView!
     @IBOutlet var rimSizePickerAfter: UIPickerView!
@@ -26,23 +26,18 @@ class SetupViewController: UIViewController {
     @IBOutlet var tyreHeigthPickerBefore: UIPickerView!
     @IBOutlet var tyreHeigthPickerAfter: UIPickerView!
     
-    // MARK: Variables
+    // MARK: Public Properties
     
-    var wheelBefore: WheelSet = WheelSet(
-        rimSize: 13,
-        rimWidth: 5,
-        rimOffset: -20,
-        tyreWidth: 135,
-        tyreHeight: 20
-    )
-
-    var wheelAfter: WheelSet = WheelSet(
-        rimSize: 13,
-        rimWidth: 5,
-        rimOffset: -20,
-        tyreWidth: 135,
-        tyreHeight: 20
-    )
+    var wheelBefore: WheelSet = WheelSet()
+    var wheelAfter: WheelSet = WheelSet()
+    
+    // MARK: PickerViews Data Source
+    
+    var rimSizesData = PickerData.getRimSizesData()
+    var rimWidthsData = PickerData.getRimWidthsData()
+    var rimOffsetsData = PickerData.getRimOffsetsData()
+    var tyreWidthsData = PickerData.getTyreWidthsData()
+    var tyreHeightsData = PickerData.getTyreHeigthsData()
     
     // MARK: viewDidLoad
     
@@ -74,18 +69,9 @@ class SetupViewController: UIViewController {
         tyreHeigthPickerAfter.dataSource = self
         tyreHeigthPickerAfter.delegate = self
     }
-    
-    // MARK: Pickers Data Source
-    
-    var rimSizesData = PickerData.getRimSizesData()
-    var rimWidthsData = PickerData.getRimWidthsData()
-    var rimOffsetsData = PickerData.getRimOffsetsData()
-    var tyreWidthsData = PickerData.getTyreWidthsData()
-    var tyreHeightsData = PickerData.getTyreHeigthsData()
-    
+        
     // MARK: Navigation
 
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let resultsVC = segue.destination as? ResultsViewController else { return }
         resultsVC.wheelBefore = wheelBefore
@@ -94,7 +80,7 @@ class SetupViewController: UIViewController {
 }
 
 
-// MARK: Pickers Setup
+// MARK: PickerViews Setup
 
 extension SetupViewController:UIPickerViewDataSource, UIPickerViewDelegate {
     
