@@ -51,7 +51,6 @@ class ResultsViewController: UIViewController {
     @IBOutlet var tyreHeightLabelMM: UILabel!
     @IBOutlet var rimWidthLabelMM: UILabel!
     
-    
     // left side labels (rim)
     @IBOutlet var rimSizeLabel: UILabel!
     @IBOutlet var rimWidthLabelInch: UILabel!
@@ -66,6 +65,7 @@ class ResultsViewController: UIViewController {
     
     var wheelBefore: WheelSet = WheelSet()
     var wheelAfter: WheelSet = WheelSet()
+    var selectedWheel: WheelSet = WheelSet()
     var results:[ResultsMessage] = []
     var scaleCoefficient: Float = 0
     
@@ -74,16 +74,16 @@ class ResultsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         scaleCoefficient = Float(suspensionImage.frame.width) / 390.0 / 3.0
+        selectedWheel = wheelAfter
         resultsTableView.dataSource = self
         results = WheelSet.generateResults(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter)
         setVisualScheme()
+        setLabels()
     }
     
     // MARK: Methods
     
-    func setVisualScheme() {
-        
-        let selectedWheel = switchBeforeAfter.isOn ? wheelAfter : wheelBefore
+   private func setVisualScheme() {
         
         // set HubSize
         hubImageHeight.constant = CGFloat(selectedWheel.rimSizeMM  * scaleCoefficient * 1.01)
@@ -125,7 +125,9 @@ class ResultsViewController: UIViewController {
         
         tyreUpperPart.layer.cornerRadius = tyreUpperPartHeight.constant / 2.5
         tyreLowerPart.layer.cornerRadius = tyreUpperPartHeight.constant / 2.5
-        
+    }
+    
+    private func setLabels() {
         // set scheme labels
         wheelSizeLabel.text = "\(Int(selectedWheel.totalWheelDiameter)) mm"
         tyreWidthLabel.text = "\(Int(selectedWheel.tyreWidth)) mm"
@@ -134,7 +136,7 @@ class ResultsViewController: UIViewController {
         
         // set left side labels
         rimSizeLabel.text = "Rim size:\n\(Int(selectedWheel.rimSize)) inches"
-        rimWidthLabelInch.text = "Rim width:\n\(Int(selectedWheel.rimWidth))inches"
+        rimWidthLabelInch.text = "Rim width:\n\(Int(selectedWheel.rimWidth)) inches"
         rimOffsetLabel.text = "Rim offset:\n\(Int(selectedWheel.rimOffset)) mm"
         
         // set right side labels
@@ -147,7 +149,9 @@ class ResultsViewController: UIViewController {
     // MARK: IB Actions
     
     @IBAction func switchBeforeAfterActivated(_ sender: UISwitch) {
+        selectedWheel = switchBeforeAfter.isOn ? wheelAfter : wheelBefore
         setVisualScheme()
+        setLabels()
     }
     
     @IBAction func backButtonTapped(_ sender: UIButton) {
@@ -162,7 +166,7 @@ extension ResultsViewController: UITableViewDataSource, UITableViewDelegate {
         results.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "message", for: indexPath)
         let result = results[indexPath.row]
         var content = cell.defaultContentConfiguration()

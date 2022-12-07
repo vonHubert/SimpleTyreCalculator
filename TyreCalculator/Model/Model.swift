@@ -14,8 +14,8 @@ struct WheelSet {
     // MARK: Wheelset Properties
     
     // rim specks
-    var rimSize: Float = 13 // diameter, set in inches, 1 inch increment.
-    var rimWidth: Float = 6 // diameter, set in inches, 0.5 inch increment, min 5, max 12
+    var rimSize: Float = 13 // set in inches, 1 inch increment.
+    var rimWidth: Float = 6 // set in inches, 0.5 inch increment, min 5, max 12
     var rimOffset: Float = -20 // set in mm, min -20, max 50
     
     // tyre specks
@@ -26,12 +26,8 @@ struct WheelSet {
     var rimSizeMM: Float { rimSize * 25.4 }
     var rimWidthMM: Float { rimWidth * 25.4 }
     var tyreHeightMM: Float { tyreWidth * tyreHeight / 100 }
-    var totalWheelDiameter: Float {
-        rimSizeMM + 2 * tyreHeightMM
-    }
-    var totalWheelCircle: Float {
-        totalWheelDiameter * Float(Double.pi)
-    }
+    var totalWheelDiameter: Float { rimSizeMM + 2 * tyreHeightMM }
+    var totalWheelCircle: Float { totalWheelDiameter * Float(Double.pi) }
 }
 
 // MARK: Messages generation
@@ -40,12 +36,8 @@ extension WheelSet {
     
     static func compareSpidometer(wheelBeforeInput: WheelSet, wheelAfterInput: WheelSet) -> (Message: String, Warning: Bool) {
         let referenceSpeed: Float = 60
-        var speedometerDelta: Float {
-            wheelAfterInput.totalWheelCircle / wheelBeforeInput.totalWheelCircle * 100 - 100
-        }
-        var actualSpeed: Float {
-            referenceSpeed * ( 1 + speedometerDelta / 100 )
-        }
+        var speedometerDelta: Float { wheelAfterInput.totalWheelCircle / wheelBeforeInput.totalWheelCircle * 100 - 100 }
+        var actualSpeed: Float { referenceSpeed * ( 1 + speedometerDelta / 100 ) }
         
         if speedometerDelta > 0 {
             return ( "Whith a new wheel set a speedometer will show speed \(String(format: "%.1f", speedometerDelta))% lower than actual, if it reads \(referenceSpeed) km/h, actual speed will be \(String(format: "%.1f", actualSpeed)) km/h", false)
@@ -79,7 +71,7 @@ extension WheelSet {
     static func checkTyreHeight(wheelSetInput: WheelSet) -> (Message: String, Warning: Bool) {
         
         if wheelSetInput.tyreHeightMM < 80 {
-            return ("New tyre height of \(String(format: "%.0f",wheelSetInput.tyreHeightMM)) mm. is low and may cause tyre, rim and suspension damage on rough road", true)
+            return ("New tyre height of \(String(format: "%.0f",wheelSetInput.tyreHeightMM)) mm. is low and may cause tyre, rim and suspension damage on rough roads", true)
         } else {
             return ("New tyre height of \(String(format: "%.0f",wheelSetInput.tyreHeightMM)) mm. is not expected to cause issues", false)
         }
@@ -111,15 +103,9 @@ extension WheelSet {
     
     
     static func checkInnerWheelFitment(wheelBeforeInput: WheelSet, wheelAfterInput: WheelSet) -> (Message: String, Warning: Bool) {
-        var innerTyreWallPositionBefore: Float {
-            wheelBeforeInput.tyreWidth / 2 + wheelBeforeInput.rimOffset
-        }
-        var innerTyreWallPositionAfter: Float {
-            wheelAfterInput.tyreWidth / 2 + wheelAfterInput.rimOffset
-        }
-        var innerTyreWallPositionChange: Float {
-            innerTyreWallPositionAfter - innerTyreWallPositionBefore
-        }
+        var innerTyreWallPositionBefore: Float { wheelBeforeInput.tyreWidth / 2 + wheelBeforeInput.rimOffset }
+        var innerTyreWallPositionAfter: Float { wheelAfterInput.tyreWidth / 2 + wheelAfterInput.rimOffset }
+        var innerTyreWallPositionChange: Float { innerTyreWallPositionAfter - innerTyreWallPositionBefore }
         
         switch innerTyreWallPositionChange {
         case 15...:
@@ -132,15 +118,9 @@ extension WheelSet {
     }
     
     static func checkOuterWheelFitment(wheelBeforeInput: WheelSet, wheelAfterInput: WheelSet) -> (Message: String, Warning: Bool) {
-        var outerTyreWallPositionBefore: Float {
-            wheelBeforeInput.tyreWidth / 2 - wheelBeforeInput.rimOffset
-        }
-        var outerTyreWallPositionAfter: Float {
-            wheelAfterInput.tyreWidth / 2 - wheelAfterInput.rimOffset
-        }
-        var outerTyreWallPositionChange: Float {
-            outerTyreWallPositionAfter - outerTyreWallPositionBefore
-        }
+        var outerTyreWallPositionBefore: Float { wheelBeforeInput.tyreWidth / 2 - wheelBeforeInput.rimOffset }
+        var outerTyreWallPositionAfter: Float { wheelAfterInput.tyreWidth / 2 - wheelAfterInput.rimOffset }
+        var outerTyreWallPositionChange: Float { outerTyreWallPositionAfter - outerTyreWallPositionBefore }
         
         switch outerTyreWallPositionChange {
         case 15...:

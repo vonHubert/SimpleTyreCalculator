@@ -36,11 +36,11 @@ class SetupViewController: UIViewController {
     
     // MARK: PickerViews Data Source
     
-    var rimSizesData = PickerData.getRimSizesData()
-    var rimWidthsData = PickerData.getRimWidthsData()
-    var rimOffsetsData = PickerData.getRimOffsetsData()
-    var tyreWidthsData = PickerData.getTyreWidthsData()
-    var tyreHeightsData = PickerData.getTyreHeigthsData()
+    let rimSizesData = PickerData.getRimSizesData()
+    let rimWidthsData = PickerData.getRimWidthsData()
+    let rimOffsetsData = PickerData.getRimOffsetsData()
+    let tyreWidthsData = PickerData.getTyreWidthsData()
+    let tyreHeightsData = PickerData.getTyreHeigthsData()
     
     // MARK: viewDidLoad
     
