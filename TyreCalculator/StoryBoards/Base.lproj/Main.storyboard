@@ -476,7 +476,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ogh-vh-8v5">
-                                <rect key="frame" x="118.5" y="137" width="33" height="16"/>
+                                <rect key="frame" x="130" y="137" width="33" height="16"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <nil key="textColor"/>
@@ -536,7 +536,7 @@
                             <constraint firstItem="CgW-z5-Vja" firstAttribute="bottom" secondItem="Pr0-31-m0R" secondAttribute="bottom" constant="25" id="bpA-dK-RdG"/>
                             <constraint firstItem="n93-Kd-c8d" firstAttribute="centerX" secondItem="nUP-x7-q0W" secondAttribute="centerX" constant="-3" id="dtP-rG-fbb"/>
                             <constraint firstItem="cGr-YL-wGX" firstAttribute="centerX" secondItem="XOy-Ir-YBQ" secondAttribute="centerX" id="fie-Al-Fd1"/>
-                            <constraint firstItem="ogh-vh-8v5" firstAttribute="trailing" secondItem="BlO-Iu-wdq" secondAttribute="centerX" id="g10-Qw-psY"/>
+                            <constraint firstItem="ogh-vh-8v5" firstAttribute="centerX" secondItem="BlO-Iu-wdq" secondAttribute="centerX" constant="-5" id="g10-Qw-psY"/>
                             <constraint firstItem="RBu-zu-Lps" firstAttribute="top" secondItem="eio-Tr-GgV" secondAttribute="bottom" id="gVH-uJ-VyP"/>
                             <constraint firstItem="120-fJ-w6g" firstAttribute="leading" secondItem="CgW-z5-Vja" secondAttribute="leading" constant="15" id="hM9-qz-cf1"/>
                             <constraint firstItem="cGr-YL-wGX" firstAttribute="leading" secondItem="BlO-Iu-wdq" secondAttribute="trailing" id="jqT-fr-c38"/>

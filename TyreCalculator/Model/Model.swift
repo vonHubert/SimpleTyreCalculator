@@ -39,10 +39,10 @@ struct WheelSet {
 extension WheelSet {
     
     static func compareSpidometer(wheelBeforeInput: WheelSet, wheelAfterInput: WheelSet) -> (Message: String, Warning: Bool) {
+        let referenceSpeed: Float = 60
         var speedometerDelta: Float {
             wheelAfterInput.totalWheelCircle / wheelBeforeInput.totalWheelCircle * 100 - 100
         }
-        let referenceSpeed: Float = 60
         var actualSpeed: Float {
             referenceSpeed * ( 1 + speedometerDelta / 100 )
         }
@@ -78,7 +78,7 @@ extension WheelSet {
     
     static func checkTyreHeight(wheelSetInput: WheelSet) -> (Message: String, Warning: Bool) {
         
-        if wheelSetInput.tyreHeightMM < 100 {
+        if wheelSetInput.tyreHeightMM < 80 {
             return ("New tyre height of \(String(format: "%.0f",wheelSetInput.tyreHeightMM)) mm. is low and may cause tyre, rim and suspension damage on rough road", true)
         } else {
             return ("New tyre height of \(String(format: "%.0f",wheelSetInput.tyreHeightMM)) mm. is not expected to cause issues", false)
@@ -154,8 +154,8 @@ extension WheelSet {
     
     static func generateResults(wheelBeforeInput: WheelSet, wheelAfterInput: WheelSet) -> [ResultsMessage] {
         var results:[ResultsMessage] = []
-        var wheelBefore: WheelSet = wheelBeforeInput
-        var wheelAfter: WheelSet = wheelAfterInput
+        let wheelBefore: WheelSet = wheelBeforeInput
+        let wheelAfter: WheelSet = wheelAfterInput
         
         results.append(ResultsMessage(
             title: "Spidometer:",
@@ -249,9 +249,9 @@ struct PickerData {
 // MARK: Results Message Model
 
 struct ResultsMessage {
-    var title: String
-    var message: String
-    var warning: Bool
+    let title: String
+    let message: String
+    let warning: Bool
 }
 
 

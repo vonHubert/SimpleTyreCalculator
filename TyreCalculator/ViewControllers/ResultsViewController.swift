@@ -67,11 +67,13 @@ class ResultsViewController: UIViewController {
     var wheelBefore: WheelSet = WheelSet()
     var wheelAfter: WheelSet = WheelSet()
     var results:[ResultsMessage] = []
+    var scaleCoefficient: Float = 0
     
     // MARK: viewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        scaleCoefficient = Float(suspensionImage.frame.width) / 390.0 / 3.0
         resultsTableView.dataSource = self
         results = WheelSet.generateResults(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter)
         setVisualScheme()
@@ -80,7 +82,7 @@ class ResultsViewController: UIViewController {
     // MARK: Methods
     
     func setVisualScheme() {
-        let scaleCoefficient: Float = Float(suspensionImage.frame.width) / 390.0 / 3.0
+        
         let selectedWheel = switchBeforeAfter.isOn ? wheelAfter : wheelBefore
         
         // set HubSize
