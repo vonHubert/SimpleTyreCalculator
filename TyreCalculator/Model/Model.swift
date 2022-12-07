@@ -11,7 +11,7 @@ import Foundation
 
 struct WheelSet {
     
-// MARK: Wheelset Properties
+    // MARK: Wheelset Properties
     
     // rim specks
     var rimSize: Float = 13 // diameter, set in inches, 1 inch increment.
@@ -32,8 +32,11 @@ struct WheelSet {
     var totalWheelCircle: Float {
         totalWheelDiameter * Float(Double.pi)
     }
-    
-    // MARK: Messages
+}
+
+// MARK: Messages generation
+
+extension WheelSet {
     
     static func compareSpidometer(wheelBeforeInput: WheelSet, wheelAfterInput: WheelSet) -> (Message: String, Warning: Bool) {
         var speedometerDelta: Float {
@@ -51,9 +54,9 @@ struct WheelSet {
         }
     }
     
-   static func checkTyreDiameterFitment(wheelBeforeInput: WheelSet, wheelAfterInput: WheelSet) -> (Message: String, Warning: Bool) {
-       
-       let tyreDiameterChange = wheelAfterInput.totalWheelDiameter - wheelBeforeInput.totalWheelDiameter
+    static func checkTyreDiameterFitment(wheelBeforeInput: WheelSet, wheelAfterInput: WheelSet) -> (Message: String, Warning: Bool) {
+        
+        let tyreDiameterChange = wheelAfterInput.totalWheelDiameter - wheelBeforeInput.totalWheelDiameter
         
         if tyreDiameterChange > 15 {
             return ("New tyre diameter of \(String(format: "%.0f",wheelAfterInput.totalWheelDiameter))mm is \(String(format: "%.0f",tyreDiameterChange))mm higher and may cause scrubbing on wheel archs", true)
@@ -61,10 +64,10 @@ struct WheelSet {
             return ("New tyre diameter of \(String(format: "%.0f",wheelAfterInput.totalWheelDiameter))mm is not expected to cause fitment issues", false)
         }
     }
-
-   static func checkRimDiameterFitment(wheelBeforeInput: WheelSet, wheelAfterInput: WheelSet) -> (Message: String, Warning: Bool) {
-       
-       let rimDiameterChange = wheelAfterInput.rimSize - wheelBeforeInput.rimSize
+    
+    static func checkRimDiameterFitment(wheelBeforeInput: WheelSet, wheelAfterInput: WheelSet) -> (Message: String, Warning: Bool) {
+        
+        let rimDiameterChange = wheelAfterInput.rimSize - wheelBeforeInput.rimSize
         
         if rimDiameterChange < 0 {
             return ("New rim diameter of \(String(format: "%.0f",wheelAfterInput.rimSize)) Inches is \(String(format: "%.0f", rimDiameterChange)) Inches lower and may cause scrubbing on brake calipers", true)
@@ -72,16 +75,16 @@ struct WheelSet {
             return ("New rim diameter of \(String(format: "%.0f",wheelAfterInput.rimSize)) Inches is not expected to cause fitment issues", false)
         }
     }
-
+    
     static func checkTyreHeight(wheelSetInput: WheelSet) -> (Message: String, Warning: Bool) {
         
         if wheelSetInput.tyreHeightMM < 100 {
-             return ("New tyre height of \(String(format: "%.0f",wheelSetInput.tyreHeightMM)) mm. is low and may cause tyre, rim and suspension damage on rough road", true)
-         } else {
-             return ("New tyre height of \(String(format: "%.0f",wheelSetInput.tyreHeightMM)) mm. is not expected to cause issues", false)
-         }
-     }
-
+            return ("New tyre height of \(String(format: "%.0f",wheelSetInput.tyreHeightMM)) mm. is low and may cause tyre, rim and suspension damage on rough road", true)
+        } else {
+            return ("New tyre height of \(String(format: "%.0f",wheelSetInput.tyreHeightMM)) mm. is not expected to cause issues", false)
+        }
+    }
+    
     
     static func checkTireWidthFitment(wheelSetInput: WheelSet) -> (Message: String, Warning: Bool) {
         var idealTyreWidthCorrection: Float {
@@ -105,7 +108,7 @@ struct WheelSet {
             return ("This tyre width is correct for selected rim width", false)
         }
     }
-
+    
     
     static func checkInnerWheelFitment(wheelBeforeInput: WheelSet, wheelAfterInput: WheelSet) -> (Message: String, Warning: Bool) {
         var innerTyreWallPositionBefore: Float {
