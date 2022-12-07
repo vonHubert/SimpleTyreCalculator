@@ -101,7 +101,6 @@ class ResultsViewController: UIViewController {
         let scaleCoefficient: Float = Float(suspensionImage.frame.width) / 390.0 / 3.0
         let selectedWheel = switchBeforeAfter.isOn ? wheelAfter : wheelBefore
         
-        
         // set HubSize
         hubImageHeight.constant = CGFloat(selectedWheel.rimSizeMM  * scaleCoefficient)
         
@@ -111,8 +110,7 @@ class ResultsViewController: UIViewController {
         // set rimSize (vertical constraint)
         rimUpperPartVerticalPos.constant = CGFloat(selectedWheel.rimSizeMM * scaleCoefficient * 0.5)
         rimLowerPartVerticalPos.constant = -CGFloat(selectedWheel.rimSizeMM * scaleCoefficient * 0.5)
-        
-        
+                
         // set rimOffset (horzontal constraint)
         rimUpperPartOffset.constant = CGFloat(5.0 + selectedWheel.rimOffset  * scaleCoefficient)
         rimLowerPartOffset.constant = CGFloat(5.0 + selectedWheel.rimOffset  * scaleCoefficient)
@@ -120,7 +118,6 @@ class ResultsViewController: UIViewController {
         // set rimWidth
         rimUpperPartWidth.constant = CGFloat(selectedWheel.rimWidthMM * scaleCoefficient)
         rimLowerPartWidth.constant = CGFloat(selectedWheel.rimWidthMM * scaleCoefficient)
-        
         
         // set tyreHeight
         tyreUpperPartHeight.constant = CGFloat(selectedWheel.tyreHeightMM * scaleCoefficient)
@@ -163,7 +160,6 @@ class ResultsViewController: UIViewController {
         tireWidthLabel.text = "Tyre width:\n\(Int(selectedWheel.tyreWidth))mm"
         tyreHeightLabel.text = "Tyre height:\n\(Int(selectedWheel.tyreHeight))%"
         tyreCircumference.text = "Circumference:\n\(Int(selectedWheel.totalWheelCircle))mm"
-    
     }
     
     
