@@ -15,6 +15,7 @@ class ResultsViewController: UIViewController {
     @IBOutlet var resultsTableView: UITableView!
     @IBOutlet var suspensionImage: UIImageView!
     @IBOutlet var switchBeforeAfter: UISwitch!
+    @IBOutlet var selectorBeforeAfter: UISegmentedControl!
     
     // hub image
     @IBOutlet var hubImageHeight: NSLayoutConstraint!
@@ -79,12 +80,15 @@ class ResultsViewController: UIViewController {
         results = WheelSet.generateResults(wheelBeforeInput: wheelBefore, wheelAfterInput: wheelAfter)
         setVisualScheme()
         setLabels()
+        selectorBeforeAfter.setTitleTextAttributes([NSAttributedString.Key.font : UIFont(name: "AvenirNextCondensed-Medium", size: 24)!, NSAttributedString.Key.foregroundColor: UIColor.lightGray], for: .normal)
+        selectorBeforeAfter.setTitleTextAttributes([NSAttributedString.Key.font : UIFont(name: "AvenirNextCondensed-Medium", size: 26)!, NSAttributedString.Key.foregroundColor: UIColor.darkGray], for: .selected)
     }
     
     // MARK: Methods
     
    private func setVisualScheme() {
-        
+       selectedWheel = selectorBeforeAfter.selectedSegmentIndex == 1  ? wheelAfter : wheelBefore
+       
         // set HubSize
         hubImageHeight.constant = CGFloat(selectedWheel.rimSizeMM  * scaleCoefficient * 1.01)
         
@@ -134,12 +138,12 @@ class ResultsViewController: UIViewController {
         tyreHeightLabelMM.text = "\(Int(selectedWheel.tyreHeightMM)) mm"
         rimWidthLabelMM.text = "\(Int(selectedWheel.rimWidthMM)) mm"
         
-        // set left side labels
+        // set right side labels
         rimSizeLabel.text = "Rim size:\n\(Int(selectedWheel.rimSize)) inches"
-        rimWidthLabelInch.text = "Rim width:\n\(Int(selectedWheel.rimWidth)) inches"
+        rimWidthLabelInch.text = "Rim width:\n\(Float(selectedWheel.rimWidth)) inches"
         rimOffsetLabel.text = "Rim offset:\n\(Int(selectedWheel.rimOffset)) mm"
         
-        // set right side labels
+        // set left side labels
         tireWidthLabel.text = "Tyre width:\n\(Int(selectedWheel.tyreWidth)) mm"
         tyreHeightLabel.text = "Tyre height:\n\(Int(selectedWheel.tyreHeight)) %"
         tyreCircumference.text = "Circumference:\n\(Int(selectedWheel.totalWheelCircle)) mm"
@@ -147,15 +151,11 @@ class ResultsViewController: UIViewController {
     
 
     // MARK: IB Actions
-    
-    @IBAction func switchBeforeAfterActivated(_ sender: UISwitch) {
-        selectedWheel = switchBeforeAfter.isOn ? wheelAfter : wheelBefore
+    @IBAction func selectorBeforeAfterActivated(_ sender: Any) {
+        selectedWheel = selectorBeforeAfter.selectedSegmentIndex == 1  ? wheelAfter : wheelBefore
         setVisualScheme()
         setLabels()
-    }
-    
-    @IBAction func backButtonTapped(_ sender: UIButton) {
-        dismiss(animated: true)
+        
     }
 }
 

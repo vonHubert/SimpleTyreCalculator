@@ -38,11 +38,12 @@ extension WheelSet {
         let referenceSpeed: Float = 60
         var speedometerDelta: Float { wheelAfterInput.totalWheelCircle / wheelBeforeInput.totalWheelCircle * 100 - 100 }
         var actualSpeed: Float { referenceSpeed * ( 1 + speedometerDelta / 100 ) }
+        var warning: Bool  { abs(speedometerDelta) > 3 ? true : false}
         
         if speedometerDelta > 0 {
-            return ( "Whith a new wheel set a speedometer will show speed \(String(format: "%.1f", speedometerDelta))% lower than actual, if it reads \(referenceSpeed) km/h, actual speed will be \(String(format: "%.1f", actualSpeed)) km/h", false)
+            return ( "Whith a new wheel set a speedometer will show speed \(String(format: "%.1f", abs(speedometerDelta)))% lower than actual, if it reads \(referenceSpeed) km/h, actual speed will be \(String(format: "%.1f", actualSpeed)) km/h", warning)
         } else {
-            return ("Whith a new wheel set a speedometer will show speed \(String(format: "%.1f", speedometerDelta))% higher than actual, if it reads \(referenceSpeed) km/h, actual speed will be \(String(format: "%.1f", actualSpeed)) km/h", false)
+            return ("Whith a new wheel set a speedometer will show speed \(String(format: "%.1f", abs(speedometerDelta)))% higher than actual, if it reads \(referenceSpeed) km/h, actual speed will be \(String(format: "%.1f", actualSpeed)) km/h", warning)
         }
     }
     
